@@ -1,0 +1,90 @@
+﻿<UserControl x:Class="BudgetWPFKevin.Views.RecurringTransactionsListView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/BudgetWPFKevin;component/Resources/Styles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+
+            <DataTemplate x:Key="RecurringTemplate">
+                <Border Style="{StaticResource DataTemplateBorder}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="80"/>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="90"/>
+                            <ColumnDefinition Width="80"/>
+                            <ColumnDefinition Width="80"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Column="0" 
+                                   Text="{Binding DisplayType}" 
+                                   Style="{StaticResource DataTemplateText}"
+                                   FontWeight="SemiBold"
+                                   Foreground="#6A1B9A"/>
+
+                        <TextBlock Grid.Column="1" 
+                                   Text="{Binding CategoryName}" 
+                                   Style="{StaticResource DataTemplateText}"
+                                   Foreground="#1976D2"/>
+
+                        <TextBlock Grid.Column="2" 
+                                   Text="{Binding Description}" 
+                                   Style="{StaticResource DataTemplateText}"
+                                   TextTrimming="CharacterEllipsis"
+                                   Foreground="#616161"/>
+
+                        <TextBlock Grid.Column="3" 
+                                   Text="{Binding Amount, StringFormat={}{0:C0}, ConverterCulture=sv-SE}" 
+                                   Style="{StaticResource DataTemplateText}"
+                                   FontWeight="Bold"
+                                   Foreground="#C62828"/>
+
+                        <TextBlock Grid.Column="4" 
+                                   Text="{Binding StartDate, StringFormat=\{0:yyyy-MM-dd\}}" 
+                                   Style="{StaticResource DataTemplateText}"
+                                   FontSize="11"
+                                   Foreground="#757575"/>
+
+                        <TextBlock Grid.Column="5" 
+                                   Text="{Binding EndDate, StringFormat=\{0:yyyy-MM-dd\}}" 
+                                   Style="{StaticResource DataTemplateText}"
+                                   FontSize="11"
+                                   Foreground="#757575"/>
+                    </Grid>
+                </Border>
+            </DataTemplate>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <StackPanel>
+        <TextBlock Text="Återkommande transaktioner" Style="{StaticResource SectionHeaderText}"/>
+
+        <Border Style="{StaticResource ColumnHeaderBorder}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="80"/>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="90"/>
+                    <ColumnDefinition Width="80"/>
+                    <ColumnDefinition Width="80"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0" Text="Typ" Style="{StaticResource ColumnHeaderText}"/>
+                <TextBlock Grid.Column="1" Text="Kategori" Style="{StaticResource ColumnHeaderText}"/>
+                <TextBlock Grid.Column="2" Text="Beskrivning" Style="{StaticResource ColumnHeaderText}"/>
+                <TextBlock Grid.Column="3" Text="Belopp" Style="{StaticResource ColumnHeaderText}"/>
+                <TextBlock Grid.Column="4" Text="Start" Style="{StaticResource ColumnHeaderText}"/>
+                <TextBlock Grid.Column="5" Text="Slut" Style="{StaticResource ColumnHeaderText}"/>
+            </Grid>
+        </Border>
+
+        <ListBox ItemsSource="{Binding RecurringTransactions}" 
+                 SelectedItem="{Binding SelectedRecurring, Mode=TwoWay}"
+                 ItemTemplate="{StaticResource RecurringTemplate}"/>
+    </StackPanel>
+</UserControl>

@@ -8,10 +8,13 @@
         WindowStartupLocation="CenterOwner">
 
     <Window.Resources>
-        <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Resources/Styles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+        </ResourceDictionary>
     </Window.Resources>
-
-    
 
     <Grid Margin="10">
         <Grid.RowDefinitions>
@@ -153,10 +156,8 @@
                     Orientation="Horizontal"
                     HorizontalAlignment="Right">
             <Button Content="{Binding SaveButtonText}"
-                    Margin="0,0,8,0"
                     Command="{Binding SaveCommand}"/>
             <Button Content="Avbryt"
-                    Margin="0,0,8,0"
                     Command="{Binding CancelCommand}"/>
         </StackPanel>
     </Grid>

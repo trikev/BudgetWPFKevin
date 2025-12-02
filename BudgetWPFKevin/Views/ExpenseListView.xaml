@@ -1,0 +1,65 @@
+﻿<UserControl x:Class="BudgetWPFKevin.Views.ExpenseListView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/BudgetWPFKevin;component/Resources/Styles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+
+            <DataTemplate x:Key="ExpenseTemplate">
+                <Border Style="{StaticResource DataTemplateBorder}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="120"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="100"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Column="0" 
+                                   Text="{Binding Date, StringFormat=\{0:yyyy-MM-dd\}}" 
+                                   Style="{StaticResource TransactionDateText}"/>
+
+                        <TextBlock Grid.Column="1" 
+                                   Text="{Binding CategoryName}"
+                                   Style="{StaticResource TransactionCategoryText}"/>
+
+                        <TextBlock Grid.Column="2" 
+                                   Text="{Binding Description}"
+                                   Style="{StaticResource TransactionDescriptionText}"/>
+
+                        <TextBlock Grid.Column="3" 
+                                   Text="{Binding Amount, StringFormat={}{0:C0}, ConverterCulture=sv-SE}" 
+                                   Style="{StaticResource ExpenseAmountText}"/>
+                    </Grid>
+                </Border>
+            </DataTemplate>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <StackPanel>
+        <TextBlock Text="Engångsutgifter" Style="{StaticResource SectionHeaderText}"/>
+
+        <Border Style="{StaticResource ColumnHeaderBorder}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="120"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="100"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0" Text="Datum" Style="{StaticResource ColumnHeaderText}"/>
+                <TextBlock Grid.Column="1" Text="Kategori" Style="{StaticResource ColumnHeaderText}"/>
+                <TextBlock Grid.Column="2" Text="Beskrivning" Style="{StaticResource ColumnHeaderText}"/>
+                <TextBlock Grid.Column="3" Text="Belopp" Style="{StaticResource ColumnHeaderText}" HorizontalAlignment="Right"/>
+            </Grid>
+        </Border>
+
+        <ListBox ItemsSource="{Binding Expenses}" 
+                 SelectedItem="{Binding SelectedTransaction, Mode=TwoWay}"
+                 ItemTemplate="{StaticResource ExpenseTemplate}"/>
+    </StackPanel>
+</UserControl>

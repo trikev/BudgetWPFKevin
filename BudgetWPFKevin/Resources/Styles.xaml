@@ -21,7 +21,7 @@
     <Style TargetType="TextBlock">
         <Setter Property="FontFamily" Value="pack://application:,,,/Fonts/#Nunito Light"/>
         <Setter Property="FontSize" Value="14"/>
-        <Setter Property="Margin" Value="0,0,0,5"/>
+        
     </Style>
 
     <!-- Standard TextBox Style -->
@@ -40,6 +40,7 @@
 
     <!-- Standard Button Style -->
     <Style TargetType="Button">
+        
         <Setter Property="FontSize" Value="14"/>
         <Setter Property="Padding" Value="15,8"/>
         <Setter Property="Margin" Value="5"/>
