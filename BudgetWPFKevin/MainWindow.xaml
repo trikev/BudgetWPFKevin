@@ -1,0 +1,96 @@
+﻿<Window x:Class="BudgetWPFKevin.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BudgetWPFKevin"
+        xmlns:views="clr-namespace:BudgetWPFKevin.Views"
+        mc:Ignorable="d"
+        Title="Budget App" Height="800" Width="1100">
+
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Monthly Summary  -->
+        <views:MonthlySummaryView Grid.Row="0" 
+                                  DataContext="{Binding MonthlySummaryVM}" 
+                                  Margin="0,0,0,10"/>
+
+        <!-- Toolbar -->
+        <StackPanel Grid.Row="1" 
+            Orientation="Horizontal" 
+            Margin="0,0,0,10">
+            <Button Command="{Binding AddCommand}"
+            Padding="10,5"
+            Margin="0,0,5,0">
+                <StackPanel Orientation="Horizontal" 
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center">
+                    <TextBlock Text="➕" Margin="0,0,5,0" VerticalAlignment="Center"/>
+                    <TextBlock Text="Ny transaktion" VerticalAlignment="Center" Margin="0,1,0,0"/>
+                </StackPanel>
+            </Button>
+
+            <Button Command="{Binding EditCommand}"
+            Padding="10,5"
+            Margin="0,0,5,0">
+                <StackPanel Orientation="Horizontal" 
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center">
+                    <TextBlock Text="✏️" Margin="0,0,5,0" VerticalAlignment="Center"/>
+                    <TextBlock Text="Redigera" VerticalAlignment="Center" Margin="0,1,0,0"/>
+                </StackPanel>
+            </Button>
+
+            <Button Command="{Binding TransactionCoordinator.DeleteCommand}"
+            Padding="10,5"
+            Margin="0,0,5,0">
+                <StackPanel Orientation="Horizontal" 
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center">
+                    <TextBlock Text="🗑️" Margin="0,0,5,0" VerticalAlignment="Center"/>
+                    <TextBlock Text="Ta bort" VerticalAlignment="Center" Margin="0,1,0,0"/>
+                </StackPanel>
+            </Button>
+
+            <Separator Width="1" Margin="10,0"/>
+
+            <Button Command="{Binding OpenUserSettingsCommand}"
+            Padding="10,5"
+            Margin="0,0,5,0"
+            ToolTip="Ange årsinkomst och arbetstid">
+                <StackPanel Orientation="Horizontal" 
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center">
+                    <TextBlock Text="⚙️" Margin="0,0,5,0" VerticalAlignment="Center"/>
+                    <TextBlock Text="Inställningar" VerticalAlignment="Center" Margin="0,1,0,0"/>
+                </StackPanel>
+            </Button>
+
+            <Button Command="{Binding AddAbsenceCommand}"
+            Padding="10,5"
+            Margin="0,0,5,0"
+            ToolTip="Registrera VAB eller sjukdag">
+                <StackPanel Orientation="Horizontal" 
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center">
+                    <TextBlock Text="📅" Margin="0,0,5,0" VerticalAlignment="Center"/>
+                    <TextBlock Text="Lägg till frånvaro" VerticalAlignment="Center" Margin="0,1,0,0"/>
+                </StackPanel>
+            </Button>
+        </StackPanel>
+        <!-- Transaction Lists  -->
+        <views:TransactionListsView Grid.Row="2" 
+                                    DataContext="{Binding TransactionCoordinator}"/>
+
+        <!-- Absence Summary -->
+        <views:AbsenceSummaryView Grid.Row="3" 
+                                  DataContext="{Binding AbsenceSummaryVM}"
+                                  Margin="0,10,0,0"/>
+    </Grid>
+</Window>

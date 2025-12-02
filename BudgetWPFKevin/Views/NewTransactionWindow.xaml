@@ -1,0 +1,163 @@
+﻿<Window x:Class="BudgetWPFKevin.Views.NewTransactionWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:models="clr-namespace:BudgetWPFKevin.Models"
+        Title="{Binding WindowTitle}"
+        Height="700"
+        Width="420"
+        WindowStartupLocation="CenterOwner">
+
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+    </Window.Resources>
+
+    
+
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" Margin="0,0,0,10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Desription -->
+            <StackPanel Grid.Row="0" Grid.Column="1">
+                <TextBlock Text="Beskrivning" 
+                           Foreground="Gray"
+                           Margin="0,0,0,2"/>
+                <TextBox Text="{Binding Description, Mode=TwoWay}"
+                         Margin="0,0,0,8"/>
+            </StackPanel>
+
+            <!-- Belopp -->
+            <StackPanel Grid.Row="1" Grid.Column="1">
+                <TextBlock Text="Summa (kr)" 
+                           Foreground="Gray"
+                           Margin="0,0,0,2"/>
+                <TextBox Text="{Binding Amount, Mode=TwoWay}"
+                         Margin="0,0,0,8"/>
+            </StackPanel>
+
+            <!-- Datum / Startdatum -->
+            <StackPanel Grid.Row="2" Grid.Column="1">
+                <TextBlock FontSize="14"
+                           Foreground="Gray"
+                           Margin="0,0,0,2">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Text" Value="Datum" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ShowRecurringOptions}" Value="True">
+                                    <Setter Property="Text" Value="Startdatum" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+                <DatePicker SelectedDate="{Binding Date, Mode=TwoWay}"
+                            Margin="0,0,0,8"/>
+            </StackPanel>
+
+            <!-- Kategori -->
+            <StackPanel Grid.Row="3" Grid.Column="1">
+                <TextBlock Text="Kategori" 
+                           Foreground="Gray"
+                           Margin="0,0,0,2"/>
+                <ComboBox ItemsSource="{Binding CurrentCategories}"
+                          SelectedValue="{Binding CategoryId, Mode=TwoWay}"
+                          SelectedValuePath="Id"
+                          DisplayMemberPath="Name"
+                          Margin="0,0,0,8" >
+                   
+                </ComboBox>
+            </StackPanel>
+
+            <!-- Typ -->
+            <StackPanel Grid.Row="4" Grid.Column="1"
+                        Orientation="Horizontal"
+                        Margin="0,0,0,8">
+                <RadioButton Content="Utgift"
+                             IsChecked="{Binding IsExpense, Mode=TwoWay}"
+                             Margin="15,0,15,0"/>
+                <RadioButton Content="Inkomst"
+                             IsChecked="{Binding IsIncome, Mode=TwoWay}"/>
+            </StackPanel>
+
+            <!-- Återkommande Checkbox -->
+            <CheckBox Grid.Row="5" Grid.Column="1"
+                      Content="Gör till återkommande transaktion"
+                      IsChecked="{Binding MakeRecurring, Mode=TwoWay}"
+                      Margin="3,8,0,8"/>
+
+            <!-- Slutdatum (endast för återkommande) -->
+            <StackPanel Grid.Row="6" Grid.Column="1"
+                        Margin="0,0,0,8"
+                        Visibility="{Binding ShowRecurringOptions, Converter={StaticResource BoolToVisibilityConverter}}">
+                <TextBlock Text="Slutdatum (valfritt, lämna tomt för pågående)" 
+                           Foreground="Gray"
+                           Margin="0,0,0,2"/>
+                <DatePicker SelectedDate="{Binding EndDate, Mode=TwoWay, TargetNullValue=''}" />
+            </StackPanel>
+
+            <!-- Återkommande inställningar -->
+            <StackPanel Grid.Row="7" Grid.ColumnSpan="2"
+                        Margin="0,8,0,0"
+                        Visibility="{Binding ShowRecurringOptions, Converter={StaticResource BoolToVisibilityConverter}}">
+
+                <TextBlock Text="Återkommande inställningar" 
+                           FontWeight="SemiBold"
+                           Margin="3,0,0,8"/>
+
+                <StackPanel Margin="3,0,0,0">
+                    <TextBlock Text="Återkommer:" 
+                               Foreground="Gray"
+                               Margin="0,0,0,2"/>
+                    <ComboBox SelectedValue="{Binding RecurrenceType, Mode=TwoWay}"
+                              SelectedValuePath="Tag"
+                              Margin="0,0,0,8">
+                        <ComboBoxItem Content="Månatlig" Tag="{x:Static models:RecurrenceType.Monthly}" />
+                        <ComboBoxItem Content="Årlig" Tag="{x:Static models:RecurrenceType.Yearly}" />
+                    </ComboBox>
+
+                    <!-- Månad (endast för Yearly) -->
+                    <StackPanel Visibility="{Binding IsYearlyRecurrence, Converter={StaticResource BoolToVisibilityConverter}}">
+                        <TextBlock Text="Månad:" 
+                                   Foreground="Gray"
+                                   Margin="0,0,0,2"/>
+                        <ComboBox ItemsSource="{Binding MonthNames}"
+                                  SelectedItem="{Binding SelectedMonthName, Mode=TwoWay}"
+                                  Margin="0,0,0,8"/>
+                    </StackPanel>
+                </StackPanel>
+            </StackPanel>
+
+        </Grid>
+
+        <!-- Buttons -->
+        <StackPanel Grid.Row="1"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right">
+            <Button Content="{Binding SaveButtonText}"
+                    Margin="0,0,8,0"
+                    Command="{Binding SaveCommand}"/>
+            <Button Content="Avbryt"
+                    Margin="0,0,8,0"
+                    Command="{Binding CancelCommand}"/>
+        </StackPanel>
+    </Grid>
+</Window>
