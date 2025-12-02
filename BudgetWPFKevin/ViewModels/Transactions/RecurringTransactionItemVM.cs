@@ -125,6 +125,7 @@ namespace BudgetWPFKevin.ViewModels.Transactions
                 {
                     _recurringTransaction.RecurrenceType = value;
                     OnPropertyChanged();
+
                 }
             }
         }

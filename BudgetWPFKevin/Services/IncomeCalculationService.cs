@@ -7,7 +7,7 @@ namespace BudgetWPFKevin.Services
 
     public class IncomeCalculationService : IIncomeCalculationService
     {
-        private const decimal VAB_INCOME_CAP = 441000m; 
+        private const decimal VAB_INCOME_CAP = 410000; 
         private const decimal COMPENSATION_RATE = 0.80m; 
 
         public decimal CalculateMonthlyIncome(UserSettings settings)

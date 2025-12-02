@@ -7,7 +7,6 @@ using System.ComponentModel;
 
 namespace BudgetWPFKevin.ViewModels.Transactions
 {
-    // Koordinatorvymodell för att hantera både reguljära och återkommande transaktioner
     public class TransactionCoordinatorVM : ViewModelBase
     {
         private readonly CategoryListVM _categoryListVM;
@@ -44,17 +43,14 @@ namespace BudgetWPFKevin.ViewModels.Transactions
             _categoryListVM = categoryListVM;
             _mapper = mapper;
 
-            // Synka selection mellan listorna
             RegularTransactions.PropertyChanged += OnRegularSelectionChanged;
             RecurringTransactions.PropertyChanged += OnRecurringSelectionChanged;
 
-            // Delete command
             DeleteCommand = new DelegateCommand(
                 async _ => await DeleteSelectedAsync(),
                 _ => SelectedTransaction != null);
         }
 
-        // Hantera ändringar i valda transaktioner
         private void OnRegularSelectionChanged(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == nameof(RegularTransactions.SelectedTransaction))
@@ -63,7 +59,6 @@ namespace BudgetWPFKevin.ViewModels.Transactions
             }
         }
 
-        // Hantera ändringar i valda återkommande transaktioner
         private void OnRecurringSelectionChanged(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == nameof(RecurringTransactions.SelectedRecurring))
@@ -76,13 +71,9 @@ namespace BudgetWPFKevin.ViewModels.Transactions
         {
             await RegularTransactions.LoadForMonthAsync(month);
             await RecurringTransactions.LoadForMonthAsync(month);
-
-            // Skapa mirror transactions för recurring incomes
             CreateMirrorTransactions(month);
         }
 
-
-        // Radera vald transaktion
         public async Task DeleteSelectedAsync()
         {
             if (SelectedTransaction == null) return;
@@ -91,7 +82,6 @@ namespace BudgetWPFKevin.ViewModels.Transactions
             {
                 if (item.IsFromRecurring)
                 {
-                    // Hitta och ta bort recurring + alla mirrors
                     var recurring = RecurringTransactions.RecurringTransactions
                         .FirstOrDefault(r => r.Id == item.RecurringTransactionId);
 
@@ -108,7 +98,6 @@ namespace BudgetWPFKevin.ViewModels.Transactions
             }
             else if (SelectedTransaction is RecurringTransactionItemVM recurring)
             {
-
                 await RecurringTransactions.DeleteAsync(recurring);
                 RemoveAllMirrorTransactions(recurring.Id);
             }
@@ -116,23 +105,37 @@ namespace BudgetWPFKevin.ViewModels.Transactions
             SelectedTransaction = null;
         }
 
-        public async Task UpdateTransactionAsync(ITransactionVM transactionVM, DateTime selectedMonth)
+        public async Task UpdateTransactionAsync(ITransactionVM editedVM, DateTime selectedMonth)
         {
-            if (transactionVM is TransactionItemViewModel item)
+            if (editedVM is TransactionItemViewModel editedItem)
             {
-                await RegularTransactions.UpdateAsync(item);
-            }
-            else if (transactionVM is RecurringTransactionItemVM recurring)
-            {
-                await RecurringTransactions.UpdateAsync(recurring);
+                var original = RegularTransactions.Incomes
+                    .Concat(RegularTransactions.Expenses)
+                    .FirstOrDefault(t => t.Id == editedItem.Id);
 
-                // Uppdatera mirrors
-                RemoveAllMirrorTransactions(recurring.Id);
-                if (recurring.Type == TransactionType.Income &&
-                    RecurringTransactions.ShouldShowInMonth(recurring, selectedMonth))
+                if (original != null)
                 {
-                    var mirror = CreateMirrorTransaction(recurring, selectedMonth);
-                    RegularTransactions.Add(mirror);
+                    CopyTransactionValues(editedItem, original);
+                    await RegularTransactions.UpdateAsync(original);
+                }
+            }
+            else if (editedVM is RecurringTransactionItemVM editedRecurring)
+            {
+                var original = RecurringTransactions.RecurringTransactions
+                    .FirstOrDefault(r => r.Id == editedRecurring.Id);
+
+                if (original != null)
+                {
+                    CopyRecurringValues(editedRecurring, original);
+                    await RecurringTransactions.UpdateAsync(original);
+
+                    RemoveAllMirrorTransactions(original.Id);
+                    if (original.Type == TransactionType.Income &&
+                        RecurringTransactions.ShouldShowInMonth(original, selectedMonth))
+                    {
+                        var mirror = CreateMirrorTransaction(original, selectedMonth);
+                        RegularTransactions.Add(mirror);
+                    }
                 }
             }
         }
@@ -195,14 +198,12 @@ namespace BudgetWPFKevin.ViewModels.Transactions
             var recurringVM = new RecurringTransactionItemVM(recurring);
             await RecurringTransactions.SaveAsync(recurringVM);
 
-            // Ta bort reguljär
             await RegularTransactions.DeleteAsync(item);
 
             if (RecurringTransactions.ShouldShowInMonth(recurringVM, selectedMonth))
             {
                 SelectedTransaction = recurringVM;
 
-                // Skapa mirror om det är income
                 if (recurring.Type == TransactionType.Income)
                 {
                     var mirror = CreateMirrorTransaction(recurringVM, selectedMonth);
@@ -217,13 +218,9 @@ namespace BudgetWPFKevin.ViewModels.Transactions
 
         public async Task ConvertToRegularAsync(RecurringTransactionItemVM rItem)
         {
-            // Ta bort recurring
             await RecurringTransactions.DeleteAsync(rItem);
-
-            // Ta bort mirrors
             RemoveAllMirrorTransactions(rItem.Id);
 
-            // Skapa reguljär
             var transaction = _mapper.Map<Transaction>(rItem);
             var newVM = new TransactionItemViewModel(transaction);
             await RegularTransactions.SaveAsync(newVM);
@@ -243,19 +240,99 @@ namespace BudgetWPFKevin.ViewModels.Transactions
             return new TransactionItemViewModel(newTransaction);
         }
 
-        // Hämta redigerbar version av transaktionen
+        // Skapa kopia för editering
         public ITransactionVM GetEditableTransaction(ITransactionVM transaction)
         {
-            if (transaction is TransactionItemViewModel item && item.IsFromRecurring)
+            if (transaction is TransactionItemViewModel item)
             {
-                return RecurringTransactions.RecurringTransactions
-                    .FirstOrDefault(r => r.Id == item.RecurringTransactionId) ?? transaction;
+                if (item.IsFromRecurring)
+                {
+                    var recurrance = RecurringTransactions.RecurringTransactions
+                        .FirstOrDefault(r => r.Id == item.RecurringTransactionId);
+
+                    if (recurrance != null)
+                    {
+                        return CreateRecurringCopy(recurrance);
+                    }
+                }
+
+                return CreateTransactionCopy(item);
+            }
+
+            if (transaction is RecurringTransactionItemVM recurring)
+            {
+                return CreateRecurringCopy(recurring);
             }
 
             return transaction;
         }
 
-        // Skapa mirror transactions för återkommande inkomster så den har en plats i inkomstlistan
+        // Skapa kopia av TransactionItemViewModel
+        private TransactionItemViewModel CreateTransactionCopy(TransactionItemViewModel original)
+        {
+            var transaction = new Transaction
+            {
+                Id = original.Id,
+                Description = original.Description,
+                Amount = original.Amount,
+                Date = new DateTimeOffset(original.Date),
+                CategoryId = original.CategoryId,
+                Type = original.Type,
+                RecurringTransactionId = original.RecurringTransactionId
+            };
+
+            var copy = new TransactionItemViewModel(transaction);
+            copy.CategoryName = original.CategoryName;
+
+            return copy;
+        }
+
+        // Skapa kopia av RecurringTransactionItemVM
+        private RecurringTransactionItemVM CreateRecurringCopy(RecurringTransactionItemVM original)
+        {
+            var recurring = new RecurringTransaction
+            {
+                Id = original.Id,
+                Description = original.Description,
+                Amount = original.Amount,
+                StartDate = original.StartDate,
+                EndDate = original.EndDate,
+                CategoryId = original.CategoryId,
+                Type = original.Type,
+                RecurrenceType = original.RecurrenceType,
+                Month = original.Month,
+                IsRecurring = true
+            };
+
+            var copy = new RecurringTransactionItemVM(recurring);
+            copy.CategoryName = original.CategoryName;
+
+            return copy;
+        }
+
+        // Kopiera värden mellan TransactionItemViewModel
+        private void CopyTransactionValues(TransactionItemViewModel from, TransactionItemViewModel to)
+        {
+            to.Description = from.Description;
+            to.Amount = from.Amount;
+            to.Date = from.Date;
+            to.CategoryId = from.CategoryId;
+            to.Type = from.Type;
+        }
+
+        // NY METOD - Kopiera värden mellan RecurringTransactionItemVM
+        private void CopyRecurringValues(RecurringTransactionItemVM from, RecurringTransactionItemVM to)
+        {
+            to.Description = from.Description;
+            to.Amount = from.Amount;
+            to.StartDate = from.StartDate;
+            to.EndDate = from.EndDate;
+            to.CategoryId = from.CategoryId;
+            to.Type = from.Type;
+            to.RecurrenceType = from.RecurrenceType;
+            to.Month = from.Month;
+        }
+
         private void CreateMirrorTransactions(DateTime month)
         {
             var visibleRecurring = RecurringTransactions.GetVisibleForMonth(month);
@@ -269,7 +346,6 @@ namespace BudgetWPFKevin.ViewModels.Transactions
                 }
             }
         }
-
 
         private TransactionItemViewModel CreateMirrorTransaction(
             RecurringTransactionItemVM recurringVM,
