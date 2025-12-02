@@ -1,7 +1,7 @@
 ﻿<!-- Styles.xaml -->
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                     xmlns:converters="clr-namespace:BudgetWPFKevin.Converters">
+                    xmlns:converters="clr-namespace:BudgetWPFKevin.Converters">
 
     <Thickness x:Key="SectionMargin">10</Thickness>
 
@@ -40,13 +40,11 @@
 
     <!-- Standard Button Style -->
     <Style TargetType="Button">
-        
         <Setter Property="FontSize" Value="14"/>
         <Setter Property="Padding" Value="15,8"/>
         <Setter Property="Margin" Value="5"/>
         <Setter Property="MinWidth" Value="100"/>
     </Style>
-
 
     <!-- ListBox Style för transaktionslistor -->
     <Style TargetType="ListBox">
@@ -76,7 +74,6 @@
         </Style.Triggers>
     </Style>
 
-
     <!-- Style för sammanfattningskort -->
     <Style x:Key="SummaryCard" TargetType="Border">
         <Setter Property="CornerRadius" Value="6"/>
@@ -92,6 +89,13 @@
         <Setter Property="Height" Value="55"/>
         <Setter Property="HorizontalAlignment" Value="Center"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
+    </Style>
+
+    <Style x:Key="CardSumText" TargetType="TextBlock">
+        <Setter Property="FontWeight" Value="Regular"/>
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="Margin" Value="0,10,0,0"/> 
     </Style>
 
     <!-- Styles för transaktions-textblock i DataTemplates -->
@@ -154,9 +158,7 @@
         <Setter Property="HorizontalAlignment" Value="Left"/>
     </Style>
 
-    <!-- Datatemplate för frånvaoposter -->
-
-
+    <!-- Stil för borders i DataTemplates -->
     <Style x:Key="DataTemplateBorder" TargetType="Border">
         <Setter Property="BorderBrush" Value="#E0E0E0"/>
         <Setter Property="BorderThickness" Value="0,0,0,1"/>
@@ -164,128 +166,10 @@
         <Setter Property="Background" Value="Transparent"/>
     </Style>
 
+    <!-- Stil för text i DataTemplates -->
     <Style x:Key="DataTemplateText" TargetType="TextBlock">
         <Setter Property="Margin" Value="0,1,0,0"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
     </Style>
-
-
-    <DataTemplate x:Key="AbsenceRecordTemplate">
-        <Border Style="{StaticResource DataTemplateBorder}">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-
-                <TextBlock Grid.Column="0" 
-                           Text="{Binding Date, StringFormat=\{0:yyyy-MM-dd\}}" 
-                           Style="{StaticResource TransactionDateText}"/>
-
-                <TextBlock Grid.Column="1" 
-                           Text="{Binding DisplayTypeName}" 
-                           Style="{StaticResource TransactionCategoryText}"/>
-
-                <TextBlock Grid.Column="2" 
-                           Text="{Binding Hours, StringFormat=N1}" 
-                           Style="{StaticResource TransactionDescriptionText}"
-                           HorizontalAlignment="Left"/>
-            </Grid>
-        </Border>
-    </DataTemplate>
-
-    <!-- Datatemplate för inkomster/utgifter -->
-
-    <DataTemplate x:Key="TransactionTemplate">
-       <Border Style="{StaticResource DataTemplateBorder}">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="100"/>
-                    <ColumnDefinition Width="120"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="100"/>
-                </Grid.ColumnDefinitions>
-
-                <TextBlock Grid.Column="0" 
-                           Text="{Binding Date, StringFormat=\{0:yyyy-MM-dd\}}" 
-                           Foreground="#424242"
-                           Style="{Binding DataTemplateText}"/>
-
-                <TextBlock Grid.Column="1" 
-                           Text="{Binding CategoryName}"
-                           Style="{Binding DataTemplateText}"
-                           FontWeight="SemiBold"
-                           Foreground="#1976D2"/>
-
-                <TextBlock Grid.Column="2" 
-                           Text="{Binding Description}"
-                           Style="{Binding DataTemplateText}"
-                           TextTrimming="CharacterEllipsis"
-                           Foreground="#616161"/>
-
-                <TextBlock Grid.Column="3" 
-                           Text="{Binding Amount, StringFormat={}{0:C0}, ConverterCulture=sv-SE}" 
-                           Style="{Binding DataTemplateText}"
-                           HorizontalAlignment="Right"
-                           FontWeight="Bold"
-                           Foreground="#2E7D32"/>
-            </Grid>
-        </Border>
-    </DataTemplate>
-
-    <!-- Datatemplate för återkommande transaktioner -->
-
-    <DataTemplate x:Key="RecurringTransactionTemplate">
-        <Border Style="{StaticResource DataTemplateBorder}">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="80"/>
-                    <ColumnDefinition Width="100"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="90"/>
-                    <ColumnDefinition Width="80"/>
-                    <ColumnDefinition Width="80"/>
-                </Grid.ColumnDefinitions>
-
-                <TextBlock Grid.Column="0" 
-                           Text="{Binding DisplayType}" 
-                           Style="{Binding DataTemplateText}"
-                           FontWeight="SemiBold"
-                           Foreground="#6A1B9A"/>
-
-                <TextBlock Grid.Column="1" 
-                           Text="{Binding CategoryName}" 
-                           Style="{Binding DataTemplateText}"
-                           VerticalAlignment="Center"
-                           Foreground="#1976D2"/>
-
-                <TextBlock Grid.Column="2" 
-                           Text="{Binding Description}" 
-                           Style="{Binding DataTemplateText}"
-                           TextTrimming="CharacterEllipsis"
-                           Foreground="#616161"/>
-
-                <TextBlock Grid.Column="3" 
-                           Text="{Binding Amount, StringFormat={}{0:C0}, ConverterCulture=sv-SE}" 
-                           Style="{Binding DataTemplateText}"
-                           HorizontalAlignment="Left"
-                           FontWeight="Bold"
-                           Foreground="#C62828"/>
-
-                <TextBlock Grid.Column="4" 
-                           Text="{Binding StartDate, StringFormat=\{0:yyyy-MM-dd\}}" 
-                           Style="{Binding DataTemplateText}"
-                           FontSize="11"
-                           Foreground="#757575"/>
-
-                <TextBlock Grid.Column="5" 
-                           Text="{Binding EndDate, StringFormat=\{0:yyyy-MM-dd\}}" 
-                           Style="{Binding DataTemplateText}"
-                           FontSize="11"
-                           Foreground="#757575"/>
-            </Grid>
-        </Border>
-    </DataTemplate>
 
 </ResourceDictionary>

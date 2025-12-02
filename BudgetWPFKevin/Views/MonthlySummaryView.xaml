@@ -43,42 +43,42 @@
                     <StackPanel Style="{StaticResource CardContent}">
                         <TextBlock Text="Totala inkomster"/>
                         <TextBlock Text="{Binding TotalIncome, StringFormat={}{0:C0}, ConverterCulture=sv-SE}"
-                                    Margin="0,3,0,0" HorizontalAlignment="Center"/>
+                                    Style="{StaticResource CardSumText}"/>
                     </StackPanel>
                 </Border>
                 <Border Style="{StaticResource SummaryCard}">
                     <StackPanel Style="{StaticResource CardContent}">
                         <TextBlock Text="Totala utgifter" />
                         <TextBlock Text="{Binding TotalExpenses, StringFormat={}{0:C0}, ConverterCulture=sv-SE}"
-                                    Margin="0,3,0,0" HorizontalAlignment="Center"/>
+                                    Style="{StaticResource CardSumText}" />
                     </StackPanel>
                 </Border>
                 <Border Style="{StaticResource SummaryCard}">
                     <StackPanel Style="{StaticResource CardContent}">
                         <TextBlock Text="Beräknad månadslön"  />
                         <TextBlock Text="{Binding CalculatedMonthlyIncome, StringFormat={}{0:C0}, ConverterCulture=sv-SE}"
-                                   Margin="0,3,0,0" HorizontalAlignment="Center"/>
+                                   Style="{StaticResource CardSumText}"/>
                     </StackPanel>
                 </Border>
                 <Border Style="{StaticResource SummaryCard}">
                     <StackPanel Style="{StaticResource CardContent}" >
                         <TextBlock Text="Frånvaroavdrag" />
                         <TextBlock Text="{Binding AbsenceDeduction, StringFormat={}{0:C0}, ConverterCulture=sv-SE}"
-                                   Margin="0,3,0,0" HorizontalAlignment="Center" Foreground="Red"/>
+                                  Style="{StaticResource CardSumText}" Foreground="Red"/>
                     </StackPanel>
                 </Border>
                 <Border Style="{StaticResource SummaryCard}">
                     <StackPanel Style="{StaticResource CardContent}">
                         <TextBlock Text="Ersättning (80%)" />
                         <TextBlock Text="{Binding AbsenceCompensation, StringFormat={}{0:C0}, ConverterCulture=sv-SE}"
-                                    Margin="0,3,0,0" HorizontalAlignment="Center" Foreground="Green"/>
+                                    Style="{StaticResource CardSumText}" Foreground="Green"/>
                     </StackPanel>
                 </Border>
                 <Border Style="{StaticResource SummaryCard}">
                     <StackPanel Style="{StaticResource CardContent}">
                         <TextBlock Text="Netto (prognos)" />
                         <TextBlock Text="{Binding NetResultWithAbsence, StringFormat={}{0:C0}, ConverterCulture=sv-SE}"
-                                   FontSize="18" FontWeight="SemiBold" Margin="0,3,0,0" HorizontalAlignment="Center"/>
+                                   FontSize="20" Style="{StaticResource CardSumText}"/>
                     </StackPanel>
                 </Border>
 
