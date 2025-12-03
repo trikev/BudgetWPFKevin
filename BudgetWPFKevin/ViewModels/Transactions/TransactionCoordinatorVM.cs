@@ -49,6 +49,8 @@ namespace BudgetWPFKevin.ViewModels.Transactions
             DeleteCommand = new DelegateCommand(
                 async _ => await DeleteSelectedAsync(),
                 _ => SelectedTransaction != null);
+
+           
         }
 
         private void OnRegularSelectionChanged(object sender, PropertyChangedEventArgs e)

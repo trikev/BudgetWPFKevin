@@ -1,0 +1,131 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+
+
+    <!-- DataTemplate för frånvaroposter -->
+    <DataTemplate x:Key="AbsenceRecordTemplate">
+        <Border Style="{StaticResource DataTemplateBorder}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0" 
+                         Text="{Binding Date, StringFormat=\{0:yyyy-MM-dd\}}" 
+                         Style="{StaticResource TransactionDateText}"/>
+
+                <TextBlock Grid.Column="1" 
+                         Text="{Binding DisplayTypeName}" 
+                         Style="{StaticResource TransactionCategoryText}"/>
+
+                <TextBlock Grid.Column="2" 
+                         Text="{Binding Hours, StringFormat=N1}" 
+                         Style="{StaticResource TransactionDescriptionText}"
+                         HorizontalAlignment="Left"/>
+            </Grid>
+        </Border>
+    </DataTemplate>
+
+    <DataTemplate x:Key="ExpenseTemplate">
+        <Border Style="{StaticResource DataTemplateBorder}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="120"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="100"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0" 
+                        Text="{Binding Date, StringFormat=\{0:yyyy-MM-dd\}}" 
+                        Style="{StaticResource TransactionDateText}"/>
+
+                <TextBlock Grid.Column="1" 
+                        Text="{Binding CategoryName}"
+                        Style="{StaticResource TransactionCategoryText}"/>
+
+                <TextBlock Grid.Column="2" 
+                        Text="{Binding Description}"
+                        Style="{StaticResource TransactionDescriptionText}"/>
+
+                <TextBlock Grid.Column="3" 
+                        Text="{Binding Amount, StringFormat={}{0:C0}, ConverterCulture=sv-SE}" 
+                        Style="{StaticResource ExpenseAmountText}"/>
+            </Grid>
+        </Border>
+    </DataTemplate>
+
+    <!-- DataTemplate specifik för inkomster -->
+    <DataTemplate x:Key="IncomeTemplate">
+        <Border Style="{StaticResource DataTemplateBorder}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="120"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="100"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0" 
+                        Text="{Binding Date, StringFormat=\{0:yyyy-MM-dd\}}" 
+                        Style="{StaticResource TransactionDateText}"/>
+
+                <TextBlock Grid.Column="1" 
+                        Text="{Binding CategoryName}"
+                        Style="{StaticResource TransactionCategoryText}"/>
+
+                <TextBlock Grid.Column="2" 
+                        Text="{Binding Description}"
+                        Style="{StaticResource TransactionDescriptionText}"/>
+
+                <TextBlock Grid.Column="3" 
+                        Text="{Binding Amount, StringFormat={}{0:C0}, ConverterCulture=sv-SE}" 
+                        Style="{StaticResource IncomeAmountText}"/>
+            </Grid>
+        </Border>
+    </DataTemplate>
+
+    <DataTemplate x:Key="RecurringTemplate">
+        <Border Style="{StaticResource DataTemplateBorder}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="80"/>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="90"/>
+                    <ColumnDefinition Width="80"/>
+                    <ColumnDefinition Width="80"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0" 
+                        Text="{Binding DisplayType}" 
+                        Style="{StaticResource DataTemplateText}"
+                        FontWeight="SemiBold"
+                        Foreground="#6A1B9A"/>
+
+                <TextBlock Grid.Column="1" 
+                        Text="{Binding CategoryName}" 
+                        Style="{StaticResource TransactionCategoryText}"/>
+
+                <TextBlock Grid.Column="2" 
+                        Text="{Binding Description}" 
+                        Style="{StaticResource TransactionDescriptionText}"/>
+
+                <TextBlock Grid.Column="3" 
+                        Text="{Binding Amount, StringFormat={}{0:C0}, ConverterCulture=sv-SE}" 
+                        Style="{StaticResource ExpenseAmountText}" HorizontalAlignment="Left"/>
+
+                <TextBlock Grid.Column="4" 
+                        Text="{Binding StartDate, StringFormat=\{0:yyyy-MM-dd\}}" 
+                        Style="{StaticResource TransactionDateText}"/>
+
+                <TextBlock Grid.Column="5" 
+                        Text="{Binding EndDate, StringFormat=\{0:yyyy-MM-dd\}}" 
+                        Style="{StaticResource TransactionDateText}"/>
+            </Grid>
+        </Border>
+    </DataTemplate>
+</ResourceDictionary>

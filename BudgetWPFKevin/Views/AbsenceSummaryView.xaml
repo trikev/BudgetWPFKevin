@@ -5,35 +5,9 @@
 
     <UserControl.Resources>
         <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Resources/Styles.xaml"/>
-            </ResourceDictionary.MergedDictionaries>
+           
 
-            <!-- DataTemplate för frånvaroposter -->
-            <DataTemplate x:Key="AbsenceRecordTemplate">
-                <Border Style="{StaticResource DataTemplateBorder}">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-
-                        <TextBlock Grid.Column="0" 
-                                   Text="{Binding Date, StringFormat=\{0:yyyy-MM-dd\}}" 
-                                   Style="{StaticResource TransactionDateText}"/>
-
-                        <TextBlock Grid.Column="1" 
-                                   Text="{Binding DisplayTypeName}" 
-                                   Style="{StaticResource TransactionCategoryText}"/>
-
-                        <TextBlock Grid.Column="2" 
-                                   Text="{Binding Hours, StringFormat=N1}" 
-                                   Style="{StaticResource TransactionDescriptionText}"
-                                   HorizontalAlignment="Left"/>
-                    </Grid>
-                </Border>
-            </DataTemplate>
+          
 
         </ResourceDictionary>
     </UserControl.Resources>

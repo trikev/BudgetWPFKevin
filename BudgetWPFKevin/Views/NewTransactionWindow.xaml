@@ -7,14 +7,7 @@
         Width="420"
         WindowStartupLocation="CenterOwner">
 
-    <Window.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Resources/Styles.xaml"/>
-            </ResourceDictionary.MergedDictionaries>
-            <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter" />
-        </ResourceDictionary>
-    </Window.Resources>
+    
 
     <Grid Margin="10">
         <Grid.RowDefinitions>
@@ -114,7 +107,7 @@
                 <TextBlock Text="Slutdatum (valfritt, lämna tomt för pågående)" 
                            Foreground="Gray"
                            Margin="0,0,0,2"/>
-                <DatePicker SelectedDate="{Binding EndDate, TargetNullValue=''}" />
+                <DatePicker SelectedDate="{Binding EndDate, Mode=TwoWay, TargetNullValue=''}" />
             </StackPanel>
 
             <!-- Återkommande inställningar -->

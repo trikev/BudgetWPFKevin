@@ -48,6 +48,7 @@ namespace BudgetWPFKevin.ViewModels
             }
         }
 
+
         public MainViewModel(
             IDialogService dialogService,
             IServiceProvider serviceProvider,
@@ -64,14 +65,24 @@ namespace BudgetWPFKevin.ViewModels
             AbsenceSummaryVM = absenceSummaryVM;
 
             MonthlySummaryVM.PropertyChanged += MonthlySummaryVM_PropertyChanged;
+            TransactionCoordinator.PropertyChanged += TransactionCoordinator_PropertyChanged;
 
-            EditCommand = new DelegateCommand(async _ => await UpdateTransactionAsync());
+            EditCommand = new DelegateCommand(async _ => await UpdateTransactionAsync(),
+                 _ => TransactionCoordinator.SelectedTransaction != null);
             DeleteCommand = new DelegateCommand(async _ => await DeleteTransactionAsync());
             AddCommand = new DelegateCommand(async _ => await AddTransactionAsync());
             OpenUserSettingsCommand = new DelegateCommand(async _ => await OpenUserSettingsAsync());
             AddAbsenceCommand = new DelegateCommand(async _ => await AddAbsenceAsync());
 
             SelectedMonth = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
+        }
+
+        private void TransactionCoordinator_PropertyChanged(object? sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(TransactionCoordinator.SelectedTransaction))
+            {
+                EditCommand.RaiseCanExecuteChanged();
+            }
         }
 
         private void MonthlySummaryVM_PropertyChanged(object? sender, PropertyChangedEventArgs e)

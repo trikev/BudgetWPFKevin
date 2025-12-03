@@ -8,11 +8,15 @@
              xmlns:converters="clr-namespace:BudgetWPFKevin.Converters">
     <Application.Resources>
         <ResourceDictionary>
-            <!-- 1. Mergade dictionaries (WPF-UI tema osv) -->
             <ResourceDictionary.MergedDictionaries>
-                <ui:ThemesDictionary Theme="Light" />
+                <!-- Windows native tema (följer automatiskt ljust/mörkt läge via SystemThemeWatcher) -->
+                <ui:ThemesDictionary Theme="Light"/>
                 <ui:ControlsDictionary />
+
+                <!--<ResourceDictionary Source="/Resources/FINAL_StylesDictionary.xaml"/>-->
+                <!--<ResourceDictionary Source="/Resources/Styles.xaml"/>-->
                 <ResourceDictionary Source="/Resources/Styles.xaml"/>
+                <ResourceDictionary Source="/Resources/DataTemplates.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

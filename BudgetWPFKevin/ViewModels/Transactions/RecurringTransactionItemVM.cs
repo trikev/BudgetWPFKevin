@@ -10,7 +10,6 @@ namespace BudgetWPFKevin.ViewModels.Transactions
     public class RecurringTransactionItemVM : ViewModelBase, ITransactionVM
     {
         private readonly RecurringTransaction _recurringTransaction;
-        private readonly ObservableCollection<CategoryVM> _allCategories;
 
         public RecurringTransactionItemVM(RecurringTransaction recurringTransaction)
         {

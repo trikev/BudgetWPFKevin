@@ -11,15 +11,7 @@
         WindowStartupLocation="CenterOwner"
         ResizeMode="NoResize">
 
-    <Window.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Resources/Styles.xaml"/>
-            </ResourceDictionary.MergedDictionaries>
-
-
-        </ResourceDictionary>
-    </Window.Resources>
+    
 
     <Grid Margin="20">
         <Grid.RowDefinitions>
