@@ -1,4 +1,5 @@
-﻿using BudgetWPFKevin.Data.Interface;
+﻿using BudgetWPFKevin.Commands;
+using BudgetWPFKevin.Data.Interface;
 using BudgetWPFKevin.Models;
 using BudgetWPFKevin.Services;
 using BudgetWPFKevin.ViewModels.Absence;
@@ -28,6 +29,8 @@ namespace BudgetWPFKevin.ViewModels.Summary
                 }
             }
         }
+
+       
 
         private decimal _absenceDeduction;
         public decimal AbsenceDeduction
@@ -75,6 +78,8 @@ namespace BudgetWPFKevin.ViewModels.Summary
 
         // Nettoeffekt av frånvaro: kompensation minus avdrag
         public decimal AbsenceNetEffect => AbsenceCompensation - AbsenceDeduction;
+
+        public DelegateCommand DeleteCommand { get; }
 
         public AbsenceSummaryVM(
             IAbsenceRepository absenceRepository,

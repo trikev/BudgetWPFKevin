@@ -6,6 +6,8 @@
 
     <converters:StringToVisibilityConverter x:Key="StringToVisibilityConverter"/>
 
+    <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+
     <Style x:Key="SectionHeaderText" TargetType="TextBlock">
         <Setter Property="FontSize" Value="18"/>
         <Setter Property="FontWeight" Value="Bold"/>
@@ -211,6 +213,16 @@
                 <Setter Property="Background" Value="#7B1FA2"/>
             </Trigger>
         </Style.Triggers>
+    </Style>
+
+    <Style x:Key="NonSelectableListBoxItem" TargetType="ListBoxItem">
+        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+        <Setter Property="Padding" Value="0"/>
+        <Setter Property="Margin" Value="0"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="IsHitTestVisible" Value="False"/>
+        <Setter Property="Focusable" Value="False"/>
     </Style>
 
     <!-- Style för sammanfattningskort -->

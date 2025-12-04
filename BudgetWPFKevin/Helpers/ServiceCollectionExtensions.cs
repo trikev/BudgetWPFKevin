@@ -30,6 +30,7 @@ namespace BudgetWPFKevin.Helpers
 
             services.AddSingleton<IDialogService, DialogService>();
             services.AddScoped<IIncomeCalculationService, IncomeCalculationService>();
+            services.AddScoped<ITransactionDialogService, TransactionDialogService>();
 
             return services;
         }
@@ -56,7 +57,8 @@ namespace BudgetWPFKevin.Helpers
             services.AddScoped<MainViewModel>();
             services.AddScoped<CategoryListVM>();
             services.AddScoped<TransactionCoordinatorVM>();
-            services.AddScoped<TransactionListVM>();
+            services.AddScoped<IncomeListVM>();
+            services.AddScoped<ExpenseListVM>();
             services.AddScoped<AbsenceSummaryVM>();
             services.AddScoped<MonthlySummaryVM>();
             services.AddScoped<RecurringTransactionListVM>();

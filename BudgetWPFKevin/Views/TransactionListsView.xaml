@@ -12,14 +12,14 @@
 
         <local:IncomeListView Grid.Column="0" 
                               Margin="10"
-                              DataContext="{Binding RegularTransactions}"/>
+                              DataContext="{Binding IncomesListVM}"/>
 
         <local:ExpenseListView Grid.Column="1" 
                                Margin="10"
-                               DataContext="{Binding RegularTransactions}"/>
+                               DataContext="{Binding ExpensesListVM}"/>
 
         <local:RecurringTransactionsListView Grid.Column="2" 
                                              Margin="10"
-                                             DataContext="{Binding RecurringTransactions}"/>
+                                             DataContext="{Binding RecurringTransactionsListVM}"/>
     </Grid>
 </UserControl>

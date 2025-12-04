@@ -79,7 +79,8 @@
                 <!-- ListBox med data -->
                 <ListBox ItemsSource="{Binding AbsenceRecords}"
                          ItemTemplate="{StaticResource AbsenceRecordTemplate}"
-                         MaxHeight="120"/>
+                         MaxHeight="120"
+                         ItemContainerStyle="{StaticResource NonSelectableListBoxItem}"/>
             </StackPanel>
         </Grid>
     </Border>

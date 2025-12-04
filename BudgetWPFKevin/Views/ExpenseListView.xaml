@@ -23,6 +23,7 @@
 
         <ListBox ItemsSource="{Binding Expenses}" 
                  SelectedItem="{Binding SelectedTransaction, Mode=TwoWay}"
-                 ItemTemplate="{StaticResource ExpenseTemplate}"/>
+                 ItemTemplate="{StaticResource ExpenseTemplate}"
+                 IsSynchronizedWithCurrentItem="False"/>
     </StackPanel>
 </UserControl>
