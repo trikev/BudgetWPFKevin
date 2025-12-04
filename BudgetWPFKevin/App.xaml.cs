@@ -30,6 +30,9 @@ namespace BudgetWPFKevin
         {
             base.OnStartup(e);
 
+            ThemeManager.Instance.ApplyTheme();
+
+
             var culture = new CultureInfo("sv-SE");
             Thread.CurrentThread.CurrentCulture = culture;
             Thread.CurrentThread.CurrentUICulture = culture;
@@ -56,6 +59,8 @@ namespace BudgetWPFKevin
 
         protected override void OnExit(ExitEventArgs e)
         {
+            ThemeManager.Instance.Dispose();
+
             _serviceProvider?.Dispose();
             base.OnExit(e);
         }

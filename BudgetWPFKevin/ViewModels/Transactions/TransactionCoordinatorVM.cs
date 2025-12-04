@@ -58,6 +58,12 @@ namespace BudgetWPFKevin.ViewModels.Transactions
             if (e.PropertyName == nameof(RegularTransactions.SelectedTransaction))
             {
                 SelectedTransaction = RegularTransactions.SelectedTransaction;
+
+                // Rensa recurring selection när vi väljer en regular transaction
+                if (SelectedTransaction != null)
+                {
+                    RecurringTransactions.SelectedRecurring = null;
+                }
             }
         }
 
@@ -66,6 +72,12 @@ namespace BudgetWPFKevin.ViewModels.Transactions
             if (e.PropertyName == nameof(RecurringTransactions.SelectedRecurring))
             {
                 SelectedTransaction = RecurringTransactions.SelectedRecurring;
+
+                // Rensa regular selection när vi väljer en recurring transaction
+                if (SelectedTransaction != null)
+                {
+                    RegularTransactions.SelectedTransaction = null;
+                }
             }
         }
 

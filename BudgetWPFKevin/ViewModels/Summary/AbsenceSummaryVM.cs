@@ -44,19 +44,7 @@ namespace BudgetWPFKevin.ViewModels.Summary
             }
         }
 
-        private AbsenceItemVM _selectedAbsence;
-        public AbsenceItemVM SelectedAbsence
-        {
-            get => _selectedAbsence;
-            set
-            {
-                if (_selectedAbsence == value)
-                    return;
-
-                _selectedAbsence = value;
-                OnPropertyChanged();
-            }
-        }
+       
 
         private decimal _absenceCompensation;
         public decimal AbsenceCompensation
@@ -113,28 +101,13 @@ namespace BudgetWPFKevin.ViewModels.Summary
             await RecalculateAbsenceEffectsAsync();
         }
 
-        public async Task DeleteAbsenceAsync(int absenceId)
-        {
-            await _absenceRepository.DeleteAsync(absenceId);
-
-            var vm = AbsenceRecords.FirstOrDefault(a => a.Id == absenceId);
-            if (vm != null)
-            {
-                AbsenceRecords.Remove(vm);
-                if (SelectedAbsence == vm)
-                {
-                    SelectedAbsence = null;
-                }
-            }
-
-            await RecalculateAbsenceEffectsAsync();
-        }
+       
 
         // Uppdatera frånvaroposter i vymodellen
         private void UpdateAbsenceRecords(IEnumerable<AbsenceRecord> absences)
         {
             AbsenceRecords.Clear();
-            SelectedAbsence = null;
+            
 
             foreach (var absence in absences)
             {

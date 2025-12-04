@@ -1,81 +1,103 @@
 ﻿<UserControl x:Class="BudgetWPFKevin.Views.MonthlySummaryView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:vm="clr-namespace:BudgetWPFKevin.ViewModels" xmlns:ui="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+             xmlns:vm="clr-namespace:BudgetWPFKevin.ViewModels">
 
-   
-
-    <Border Padding="10" BorderBrush="#DDDDDD" BorderThickness="0,0,0,1">
+    <Border Padding="10" 
+            BorderBrush="{DynamicResource BorderBrush}" 
+            BorderThickness="0,0,0,1"
+            Background="{DynamicResource WindowBackgroundBrush}">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
-            <!-- Vänster: rubrik + aktuell månad -->
-            <StackPanel Grid.Row="0" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0,0,0,10">
-                <TextBlock Text="Budgetöversikt" FontSize="22" FontWeight="SemiBold" VerticalAlignment="Center"/>
+            <!-- Header med månad/år val -->
+            <StackPanel Grid.Row="0" 
+                       Orientation="Horizontal" 
+                       VerticalAlignment="Center" 
+                       HorizontalAlignment="Left" 
+                       Margin="0,0,0,10">
+                <TextBlock Text="Budgetöversikt" 
+                          FontSize="22" 
+                          FontWeight="SemiBold" 
+                          VerticalAlignment="Center"
+                          Foreground="{DynamicResource PrimaryTextBrush}"/>
                 <Separator Width="1" Margin="10,0,10,0"/>
 
-
-                <StackPanel Orientation="Horizontal" Margin="10, 0">
-
-                    <ui:ComboBox ItemsSource="{Binding Months}"
-                                SelectedItem="{Binding SelectedMonthName, Mode=TwoWay}"
-                                Width="140" Margin="0,0,10,0"/>
+                <StackPanel Orientation="Horizontal" Margin="10,0">
+                    <ComboBox ItemsSource="{Binding Months}"
+                             SelectedItem="{Binding SelectedMonthName, Mode=TwoWay}"
+                             Width="140" 
+                             Margin="0,0,10,0"/>
                     <ComboBox ItemsSource="{Binding Years}"
-                                SelectedItem="{Binding SelectedYear, Mode=TwoWay}"
-                                Width="90" Margin="0,0,20,0"/>
-
+                             SelectedItem="{Binding SelectedYear, Mode=TwoWay}"
+                             Width="90" 
+                             Margin="0,0,20,0"/>
                 </StackPanel>
-
             </StackPanel>
 
-            <!-- Höger: totalsiffror -->
-            <WrapPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Left">
+            <!-- Sammanfattningskort -->
+            <WrapPanel Grid.Row="1" 
+                      Orientation="Horizontal" 
+                      HorizontalAlignment="Left">
                 <Border Style="{StaticResource SummaryCard}">
                     <StackPanel Style="{StaticResource CardContent}">
-                        <TextBlock Text="Totala inkomster"/>
+                        <TextBlock Text="Totala inkomster"
+                                  Foreground="{DynamicResource SecondaryTextBrush}"/>
                         <TextBlock Text="{Binding TotalIncome, StringFormat={}{0:C0}, ConverterCulture=sv-SE}"
-                                    Style="{StaticResource CardSumText}"/>
-                    </StackPanel>
-                </Border>
-                <Border Style="{StaticResource SummaryCard}">
-                    <StackPanel Style="{StaticResource CardContent}">
-                        <TextBlock Text="Totala utgifter" />
-                        <TextBlock Text="{Binding TotalExpenses, StringFormat={}{0:C0}, ConverterCulture=sv-SE}"
-                                    Style="{StaticResource CardSumText}" />
-                    </StackPanel>
-                </Border>
-                <Border Style="{StaticResource SummaryCard}">
-                    <StackPanel Style="{StaticResource CardContent}">
-                        <TextBlock Text="Beräknad månadslön"  />
-                        <TextBlock Text="{Binding CalculatedMonthlyIncome, StringFormat={}{0:C0}, ConverterCulture=sv-SE}"
-                                   Style="{StaticResource CardSumText}"/>
-                    </StackPanel>
-                </Border>
-                <Border Style="{StaticResource SummaryCard}">
-                    <StackPanel Style="{StaticResource CardContent}" >
-                        <TextBlock Text="Frånvaroavdrag" />
-                        <TextBlock Text="{Binding AbsenceDeduction, StringFormat={}{0:C0}, ConverterCulture=sv-SE}"
-                                  Style="{StaticResource CardSumText}" Foreground="Red"/>
-                    </StackPanel>
-                </Border>
-                <Border Style="{StaticResource SummaryCard}">
-                    <StackPanel Style="{StaticResource CardContent}">
-                        <TextBlock Text="Ersättning (80%)" />
-                        <TextBlock Text="{Binding AbsenceCompensation, StringFormat={}{0:C0}, ConverterCulture=sv-SE}"
-                                    Style="{StaticResource CardSumText}" Foreground="Green"/>
-                    </StackPanel>
-                </Border>
-                <Border Style="{StaticResource SummaryCard}">
-                    <StackPanel Style="{StaticResource CardContent}">
-                        <TextBlock Text="Netto (prognos)" />
-                        <TextBlock Text="{Binding NetResultWithAbsence, StringFormat={}{0:C0}, ConverterCulture=sv-SE}"
-                                   FontSize="20" Style="{StaticResource CardSumText}"/>
+                                  Style="{StaticResource CardSumText}"/>
                     </StackPanel>
                 </Border>
 
+                <Border Style="{StaticResource SummaryCard}">
+                    <StackPanel Style="{StaticResource CardContent}">
+                        <TextBlock Text="Totala utgifter"
+                                  Foreground="{DynamicResource SecondaryTextBrush}"/>
+                        <TextBlock Text="{Binding TotalExpenses, StringFormat={}{0:C0}, ConverterCulture=sv-SE}"
+                                  Style="{StaticResource CardSumText}"/>
+                    </StackPanel>
+                </Border>
+
+                <Border Style="{StaticResource SummaryCard}">
+                    <StackPanel Style="{StaticResource CardContent}">
+                        <TextBlock Text="Beräknad månadslön"
+                                  Foreground="{DynamicResource SecondaryTextBrush}"/>
+                        <TextBlock Text="{Binding CalculatedMonthlyIncome, StringFormat={}{0:C0}, ConverterCulture=sv-SE}"
+                                  Style="{StaticResource CardSumText}"/>
+                    </StackPanel>
+                </Border>
+
+                <Border Style="{StaticResource SummaryCard}">
+                    <StackPanel Style="{StaticResource CardContent}">
+                        <TextBlock Text="Frånvaroavdrag"
+                                  Foreground="{DynamicResource SecondaryTextBrush}"/>
+                        <TextBlock Text="{Binding AbsenceDeduction, StringFormat={}{0:C0}, ConverterCulture=sv-SE}"
+                                  Style="{StaticResource CardSumText}" 
+                                  Foreground="{DynamicResource NegativeColorBrush}"/>
+                    </StackPanel>
+                </Border>
+
+                <Border Style="{StaticResource SummaryCard}">
+                    <StackPanel Style="{StaticResource CardContent}">
+                        <TextBlock Text="Ersättning (80%)"
+                                  Foreground="{DynamicResource SecondaryTextBrush}"/>
+                        <TextBlock Text="{Binding AbsenceCompensation, StringFormat={}{0:C0}, ConverterCulture=sv-SE}"
+                                  Style="{StaticResource CardSumText}" 
+                                  Foreground="{DynamicResource PositiveColorBrush}"/>
+                    </StackPanel>
+                </Border>
+
+                <Border Style="{StaticResource SummaryCard}">
+                    <StackPanel Style="{StaticResource CardContent}">
+                        <TextBlock Text="Netto (prognos)"
+                                  Foreground="{DynamicResource SecondaryTextBrush}"/>
+                        <TextBlock Text="{Binding NetResultWithAbsence, StringFormat={}{0:C0}, ConverterCulture=sv-SE}"
+                                  FontSize="20" 
+                                  Style="{StaticResource CardSumText}"/>
+                    </StackPanel>
+                </Border>
             </WrapPanel>
         </Grid>
     </Border>

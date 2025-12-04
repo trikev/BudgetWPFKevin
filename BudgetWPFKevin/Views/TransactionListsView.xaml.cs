@@ -10,10 +10,6 @@ namespace BudgetWPFKevin.Views
             InitializeComponent();
         }
 
-        private void DataGrid_GotFocus(object sender, RoutedEventArgs e)
-        {
-            var focusedDataGrid = sender as DataGrid;
-
-        }
+       
     }
 }

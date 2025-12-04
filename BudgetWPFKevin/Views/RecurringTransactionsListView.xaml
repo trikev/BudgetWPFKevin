@@ -29,6 +29,7 @@
 
         <ListBox ItemsSource="{Binding RecurringTransactions}" 
                  SelectedItem="{Binding SelectedRecurring, Mode=TwoWay}"
-                 ItemTemplate="{StaticResource RecurringTemplate}"/>
+                 ItemTemplate="{StaticResource RecurringTemplate}"
+                 IsSynchronizedWithCurrentItem="False"/>
     </StackPanel>
 </UserControl>

@@ -1,5 +1,4 @@
 ﻿using System.Windows;
-using Wpf.Ui.Appearance;
 
 namespace BudgetWPFKevin
 {

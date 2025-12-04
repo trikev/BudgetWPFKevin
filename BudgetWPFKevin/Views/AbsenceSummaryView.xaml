@@ -3,16 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:vm="clr-namespace:BudgetWPFKevin.ViewModels">
 
-    <UserControl.Resources>
-        <ResourceDictionary>
-           
-
-          
-
-        </ResourceDictionary>
-    </UserControl.Resources>
-
-    <Border Padding="10" BorderBrush="#DDDDDD" BorderThickness="0,1,0,0">
+    <Border Padding="10" 
+            BorderBrush="{DynamicResource BorderBrush}" 
+            BorderThickness="0,1,0,0"
+            Background="{DynamicResource WindowBackgroundBrush}">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="2*"/>
@@ -21,29 +15,34 @@
 
             <!-- Vänster: sammanfattning frånvaro -->
             <StackPanel Grid.Column="0" Margin="{StaticResource SectionMargin}">
-                <TextBlock Text="Frånvarosummering" Style="{StaticResource SectionHeaderText}"/>
-
+                <TextBlock Text="Frånvarosummering" 
+                          Style="{StaticResource SectionHeaderText}"/>
                 <UniformGrid Columns="3" Rows="1">
                     <Border Style="{StaticResource SummaryCard}">
                         <StackPanel>
-                            <TextBlock Text="Totalt frånvaroavdrag"/>
+                            <TextBlock Text="Totalt frånvaroavdrag"
+                                      Foreground="{DynamicResource SecondaryTextBrush}"/>
                             <TextBlock Text="{Binding AbsenceDeduction, StringFormat={}{0:C0}, ConverterCulture=sv-SE}" 
-                                       Foreground="Red"/>
+                                      Foreground="{DynamicResource NegativeColorBrush}"
+                                      FontWeight="SemiBold"/>
                         </StackPanel>
                     </Border>
-
                     <Border Style="{StaticResource SummaryCard}">
                         <StackPanel>
-                            <TextBlock Text="Totalt ersättning (80%)"/>
+                            <TextBlock Text="Totalt ersättning (80%)"
+                                      Foreground="{DynamicResource SecondaryTextBrush}"/>
                             <TextBlock Text="{Binding AbsenceCompensation, StringFormat={}{0:C0}, ConverterCulture=sv-SE}" 
-                                       Foreground="Green"/>
+                                      Foreground="{DynamicResource PositiveColorBrush}"
+                                      FontWeight="SemiBold"/>
                         </StackPanel>
                     </Border>
-
                     <Border Style="{StaticResource SummaryCard}">
                         <StackPanel>
-                            <TextBlock Text="Nettoeffekt frånvaro"/>
-                            <TextBlock Text="{Binding AbsenceNetEffect, StringFormat={}{0:C0}, ConverterCulture=sv-SE}"/>
+                            <TextBlock Text="Nettoeffekt frånvaro"
+                                      Foreground="{DynamicResource SecondaryTextBrush}"/>
+                            <TextBlock Text="{Binding AbsenceNetEffect, StringFormat={}{0:C0}, ConverterCulture=sv-SE}"
+                                      FontWeight="SemiBold"
+                                      Foreground="{DynamicResource PrimaryTextBrush}"/>
                         </StackPanel>
                     </Border>
                 </UniformGrid>
@@ -51,7 +50,8 @@
 
             <!-- Höger: lista med AbsenceRecord -->
             <StackPanel Grid.Column="1" Margin="{StaticResource SectionMargin}">
-                <TextBlock Text="Frånvaroposter (VAB / Sjuk)" Style="{StaticResource SectionHeaderText}"/>
+                <TextBlock Text="Frånvaroposter (VAB / Sjuk)" 
+                          Style="{StaticResource SectionHeaderText}"/>
 
                 <!-- Header för kolumner -->
                 <Border Style="{StaticResource ColumnHeaderBorder}">
@@ -61,25 +61,22 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-
                         <TextBlock Grid.Column="0" 
-                                   Text="Datum" 
-                                   Style="{StaticResource ColumnHeaderText}"/>
-
+                                  Text="Datum" 
+                                  Style="{StaticResource ColumnHeaderText}"/>
                         <TextBlock Grid.Column="1" 
-                                   Text="Typ" 
-                                   Style="{StaticResource ColumnHeaderText}"/>
-
+                                  Text="Typ" 
+                                  Style="{StaticResource ColumnHeaderText}"/>
                         <TextBlock Grid.Column="2" 
-                                   Text="Timmar" 
-                                   Style="{StaticResource ColumnHeaderText}"/>
+                                  Text="Timmar" 
+                                  Style="{StaticResource ColumnHeaderText}"/>
                     </Grid>
                 </Border>
 
                 <!-- ListBox med data -->
                 <ListBox ItemsSource="{Binding AbsenceRecords}"
-                         ItemTemplate="{StaticResource AbsenceRecordTemplate}"
-                         MaxHeight="120"/>
+                        ItemTemplate="{StaticResource AbsenceRecordTemplate}"
+                        MaxHeight="120"/>
             </StackPanel>
         </Grid>
     </Border>

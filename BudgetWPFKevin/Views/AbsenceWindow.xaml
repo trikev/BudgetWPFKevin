@@ -9,9 +9,8 @@
         Height="550"
         Width="500"
         WindowStartupLocation="CenterOwner"
-        ResizeMode="NoResize">
-
-    
+        ResizeMode="NoResize"
+        Background="{DynamicResource WindowBackgroundBrush}">
 
     <Grid Margin="20">
         <Grid.RowDefinitions>
@@ -27,61 +26,75 @@
 
         <!-- Header -->
         <TextBlock Grid.Row="0"
-                   Text="Registrera frånvaro"
-                   FontSize="18"
-                   FontWeight="Bold"
-                   Margin="0,0,0,20"/>
+                  Text="Registrera frånvaro"
+                  FontSize="18"
+                  FontWeight="Bold"
+                  Foreground="{DynamicResource PrimaryTextBrush}"
+                  Margin="0,0,0,20"/>
 
         <!-- Date -->
         <StackPanel Grid.Row="1">
-            <TextBlock Text="Datum:"/>
+            <TextBlock Text="Datum:"
+                      Foreground="{DynamicResource PrimaryTextBrush}"/>
             <DatePicker SelectedDate="{Binding Date, Mode=TwoWay}"/>
         </StackPanel>
 
         <!-- Type -->
         <StackPanel Grid.Row="2">
-            <TextBlock Text="Typ:"/>
+            <TextBlock Text="Typ:"
+                      Foreground="{DynamicResource PrimaryTextBrush}"/>
             <ComboBox ItemsSource="{Binding AbsenceTypeDisplays}"
-                      DisplayMemberPath="DisplayName"
-                      SelectedValuePath="Type"
-                      SelectedValue="{Binding SelectedType, Mode=TwoWay}">
-            </ComboBox>
+                     DisplayMemberPath="DisplayName"
+                     SelectedValuePath="Type"
+                     SelectedValue="{Binding SelectedType, Mode=TwoWay}"/>
         </StackPanel>
 
         <!-- Hours -->
         <StackPanel Grid.Row="3">
-            <TextBlock Text="Timmar:"/>
+            <TextBlock Text="Timmar:"
+                      Foreground="{DynamicResource PrimaryTextBrush}"/>
             <TextBox Text="{Binding Hours, UpdateSourceTrigger=PropertyChanged}"/>
         </StackPanel>
 
         <!-- Validation Error -->
         <TextBlock Grid.Row="4"
-                   Text="{Binding ValidationError}"
-                   Foreground="Red"
-                   FontSize="12"
-                   Visibility="{Binding ValidationError}"
-                   Margin="0,0,0,10"/>
+                  Text="{Binding ValidationError}"
+                  Foreground="{DynamicResource NegativeColorBrush}"
+                  FontSize="12"
+                  Visibility="{Binding ValidationError}"
+                  Margin="0,0,0,10"/>
 
         <!-- Info Box -->
         <Border Grid.Row="5"
-                Background="#FFF3E0"
-                BorderBrush="#FF9800"
-                BorderThickness="1"
-                CornerRadius="5"
-                Padding="10"
-                Margin="0,0,0,10">
+               Background="{DynamicResource SurfaceBrush}"
+               BorderBrush="{DynamicResource SystemAccentBrush}"
+               BorderThickness="1"
+               CornerRadius="4"
+               Padding="10"
+               Margin="0,0,0,10">
             <StackPanel>
-                <TextBlock Text="ℹ️ Beräkning av frånvaro" FontWeight="Bold" Margin="0,0,0,5"/>
-                <TextBlock TextWrapping="Wrap" FontSize="12">
+                <TextBlock Text="ℹ️ Beräkning av frånvaro" 
+                          FontWeight="Bold"
+                          Foreground="{DynamicResource PrimaryTextBrush}"
+                          Margin="0,0,0,5"/>
+                <TextBlock TextWrapping="Wrap" 
+                          FontSize="12"
+                          Foreground="{DynamicResource SecondaryTextBrush}">
                     • Avdrag beräknas baserat på din timlön
                 </TextBlock>
-                <TextBlock TextWrapping="Wrap" FontSize="12">
+                <TextBlock TextWrapping="Wrap" 
+                          FontSize="12"
+                          Foreground="{DynamicResource SecondaryTextBrush}">
                     • Ersättning är 80% av avdraget
                 </TextBlock>
-                <TextBlock TextWrapping="Wrap" FontSize="12">
+                <TextBlock TextWrapping="Wrap" 
+                          FontSize="12"
+                          Foreground="{DynamicResource SecondaryTextBrush}">
                     • För VAB gäller inkomsttak på 410 000 kr/år (7,5 PBB)
                 </TextBlock>
-                <TextBlock TextWrapping="Wrap" FontSize="12">
+                <TextBlock TextWrapping="Wrap" 
+                          FontSize="12"
+                          Foreground="{DynamicResource SecondaryTextBrush}">
                     • För sjuk används din faktiska lön
                 </TextBlock>
             </StackPanel>
@@ -89,14 +102,14 @@
 
         <!-- Buttons -->
         <StackPanel Grid.Row="7"
-                    Orientation="Horizontal"
-                    HorizontalAlignment="Right">
+                   Orientation="Horizontal"
+                   HorizontalAlignment="Right">
             <Button Content="Spara"
-                    Command="{Binding SaveCommand}"
-                    IsDefault="True"/>
+                   Command="{Binding SaveCommand}"
+                   IsDefault="True"/>
             <Button Content="Avbryt"
-                    Command="{Binding CancelCommand}"
-                    IsCancel="True"/>
+                   Command="{Binding CancelCommand}"
+                   IsCancel="True"/>
         </StackPanel>
     </Grid>
 </Window>

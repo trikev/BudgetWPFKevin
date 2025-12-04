@@ -147,13 +147,14 @@ namespace BudgetWPFKevin.ViewModels.Transactions
             {
                 if (Transaction != null)
                     Transaction.IsIncome = value;
-
                 if (RecurringTransaction != null)
                     RecurringTransaction.Type = value ? TransactionType.Income : TransactionType.Expense;
 
                 OnPropertyChanged();
                 OnPropertyChanged(nameof(IsExpense));
                 OnPropertyChanged(nameof(CurrentCategories));
+
+                SelectFirstCategory();
             }
         }
 
@@ -164,13 +165,31 @@ namespace BudgetWPFKevin.ViewModels.Transactions
             {
                 if (Transaction != null)
                     Transaction.IsExpense = value;
-
                 if (RecurringTransaction != null)
                     RecurringTransaction.Type = value ? TransactionType.Expense : TransactionType.Income;
 
                 OnPropertyChanged();
                 OnPropertyChanged(nameof(IsIncome));
                 OnPropertyChanged(nameof(CurrentCategories));
+
+                SelectFirstCategory();
+            }
+        }
+
+        private void SelectFirstCategory()
+        {
+            if (CurrentCategories != null && CurrentCategories.Any())
+            {
+                var firstCategory = CurrentCategories.First();
+                CategoryId = firstCategory.Id;
+
+                // Uppdatera även Transaction/RecurringTransaction objektet
+                if (Transaction != null)
+                    Transaction.CategoryId = firstCategory.Id;
+                if (RecurringTransaction != null)
+                    RecurringTransaction.CategoryId = firstCategory.Id;
+
+                OnPropertyChanged(nameof(CategoryId));
             }
         }
 

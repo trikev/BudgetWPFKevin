@@ -6,7 +6,10 @@
         xmlns:local="clr-namespace:BudgetWPFKevin"
         xmlns:views="clr-namespace:BudgetWPFKevin.Views"
         mc:Ignorable="d"
-        Title="Budget App" Height="840" Width="1280">
+        Title="Budget App" 
+        Height="840" 
+        Width="1280"
+        Background="{DynamicResource WindowBackgroundBrush}">
 
     <Grid Margin="10">
         <Grid.RowDefinitions>
@@ -16,35 +19,35 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <!-- Monthly Summary  -->
+        <!-- Monthly Summary -->
         <views:MonthlySummaryView Grid.Row="0" 
                                   DataContext="{Binding MonthlySummaryVM}" 
                                   Margin="0,0,0,10"/>
 
         <!-- Toolbar -->
         <StackPanel Grid.Row="1" 
-            Orientation="Horizontal" 
-            Margin="0,0,0,10">
+                   Orientation="Horizontal" 
+                   Margin="0,0,0,10">
             <Button Command="{Binding AddCommand}"
-                    Content="➕ Ny transaktion"/>
+                   Content="➕ Ny transaktion"/>
             <Button Command="{Binding EditCommand}"
-                    Content="✏️ Redigera"/>
+                   Content="✏️ Redigera"/>
             <Button Command="{Binding TransactionCoordinator.DeleteCommand}"
-                    Content="🗑️ Ta bort"/>
+                   Content="🗑️ Ta bort"/>
             <Separator Width="1" Margin="10,0"/>
-
             <Button Command="{Binding OpenUserSettingsCommand}"
-                    Content="⚙️ Inställningar"/>
+                   Content="⚙️ Inställningar"/>
             <Button Command="{Binding AddAbsenceCommand}"
-                    Content="📅 Lägg till frånvaro"/>
+                   Content="📅 Lägg till frånvaro"/>
         </StackPanel>
-        <!-- Transaction Lists  -->
+
+        <!-- Transaction Lists -->
         <views:TransactionListsView Grid.Row="2" 
-                                    DataContext="{Binding TransactionCoordinator}"/>
+                                   DataContext="{Binding TransactionCoordinator}"/>
 
         <!-- Absence Summary -->
         <views:AbsenceSummaryView Grid.Row="3" 
-                                  DataContext="{Binding AbsenceSummaryVM}"
-                                  Margin="0,10,0,0"/>
+                                 DataContext="{Binding AbsenceSummaryVM}"
+                                 Margin="0,10,0,0"/>
     </Grid>
 </Window>
