@@ -13,15 +13,6 @@ namespace BudgetWPFKevin.ViewModels
         public ObservableCollection<CategoryVM> Categories { get; }
 
 
-        // Filtrerade vyer för inkomst- och utgiftskategorier
-
-        public IEnumerable<CategoryVM> IncomeCategories =>
-            Categories.Where(c => c.AppliesTo == TransactionType.Income);
-
-        public IEnumerable<CategoryVM> ExpenseCategories =>
-            Categories.Where(c => c.AppliesTo == TransactionType.Expense);
-
-
         private CategoryVM _selectedCategory;
         public CategoryVM SelectedCategory
         {

@@ -19,16 +19,20 @@ namespace BudgetWPFKevin.ViewModels.Transactions
 
         public TransactionItemViewModel? Transaction { get; }
         public RecurringTransactionItemVM? RecurringTransaction { get; }
-        public CategoryListVM CategoryListVM { get; }        
+        public CategoryListVM CategoryListVM { get; }
         public IReadOnlyList<string> MonthNames { get; }
         public DelegateCommand SaveCommand { get; }
         public DelegateCommand CancelCommand { get; }
         public Action<bool?>? CloseAction { get; set; }
 
-       
+
 
         private bool IsRecurringMode => RecurringTransaction != null && Transaction == null;
         private bool IsRegularMode => Transaction != null && RecurringTransaction == null;
+        public bool IsYearlyRecurrence => RecurrenceType == RecurrenceType.Yearly;
+        public bool ShowRecurringOptions => MakeRecurring;
+        public bool ShouldConvertToRecurring => IsRegularMode && _convertToRecurring;
+        public bool ShouldConvertToRegular => IsRecurringMode && _convertToRegular;
 
         public ObservableCollection<CategoryVM> CurrentCategories
         {
@@ -73,8 +77,15 @@ namespace BudgetWPFKevin.ViewModels.Transactions
             get => Transaction?.Description ?? RecurringTransaction?.Description ?? string.Empty;
             set
             {
-                if (Transaction != null) Transaction.Description = value;
-                else if (RecurringTransaction != null) RecurringTransaction.Description = value;
+                if (Transaction != null)
+                {
+                    Transaction.Description = value;
+                }
+                else if (RecurringTransaction != null)
+                {
+                    RecurringTransaction.Description = value;
+                }
+
                 OnPropertyChanged();
             }
         }
@@ -84,8 +95,14 @@ namespace BudgetWPFKevin.ViewModels.Transactions
             get => Transaction?.Amount ?? RecurringTransaction?.Amount ?? 0;
             set
             {
-                if (Transaction != null) Transaction.Amount = value;
-                else if (RecurringTransaction != null) RecurringTransaction.Amount = value;
+                if (Transaction != null)
+                {
+                    Transaction.Amount = value;
+                }
+                else if (RecurringTransaction != null)
+                {
+                    RecurringTransaction.Amount = value;
+                }
                 OnPropertyChanged();
             }
         }
@@ -95,8 +112,14 @@ namespace BudgetWPFKevin.ViewModels.Transactions
             get => Transaction?.Date ?? RecurringTransaction?.StartDate ?? DateTime.Today;
             set
             {
-                if (Transaction != null) Transaction.Date = value;
-                if (RecurringTransaction != null) RecurringTransaction.StartDate = value;
+                if (Transaction != null)
+                {
+                    Transaction.Date = value;
+                }
+                if (RecurringTransaction != null)
+                {
+                    RecurringTransaction.StartDate = value;
+                }
                 OnPropertyChanged();
             }
         }
@@ -134,8 +157,14 @@ namespace BudgetWPFKevin.ViewModels.Transactions
             get => Transaction?.CategoryId ?? RecurringTransaction?.CategoryId ?? 0;
             set
             {
-                if (Transaction != null) Transaction.CategoryId = value;
-                else if (RecurringTransaction != null) RecurringTransaction.CategoryId = value;
+                if (Transaction != null)
+                {
+                    Transaction.CategoryId = value;
+                }
+                else if (RecurringTransaction != null)
+                {
+                    RecurringTransaction.CategoryId = value;
+                }
                 OnPropertyChanged();
             }
         }
@@ -146,10 +175,14 @@ namespace BudgetWPFKevin.ViewModels.Transactions
             set
             {
                 if (Transaction != null)
+                {
                     Transaction.IsIncome = value;
-                if (RecurringTransaction != null)
-                    RecurringTransaction.Type = value ? TransactionType.Income : TransactionType.Expense;
 
+                }
+                if (RecurringTransaction != null)
+                {
+                    RecurringTransaction.Type = value ? TransactionType.Income : TransactionType.Expense;
+                }
                 OnPropertyChanged();
                 OnPropertyChanged(nameof(IsExpense));
                 OnPropertyChanged(nameof(CurrentCategories));
@@ -164,10 +197,14 @@ namespace BudgetWPFKevin.ViewModels.Transactions
             set
             {
                 if (Transaction != null)
+                {
                     Transaction.IsExpense = value;
-                if (RecurringTransaction != null)
-                    RecurringTransaction.Type = value ? TransactionType.Expense : TransactionType.Income;
 
+                }
+                if (RecurringTransaction != null)
+                {
+                    RecurringTransaction.Type = value ? TransactionType.Expense : TransactionType.Income;
+                }
                 OnPropertyChanged();
                 OnPropertyChanged(nameof(IsIncome));
                 OnPropertyChanged(nameof(CurrentCategories));
@@ -185,10 +222,15 @@ namespace BudgetWPFKevin.ViewModels.Transactions
 
                 // Uppdatera även Transaction/RecurringTransaction objektet
                 if (Transaction != null)
+                {
                     Transaction.CategoryId = firstCategory.Id;
+
+                }
                 if (RecurringTransaction != null)
+                {
                     RecurringTransaction.CategoryId = firstCategory.Id;
 
+                }
                 OnPropertyChanged(nameof(CategoryId));
             }
         }
@@ -201,7 +243,7 @@ namespace BudgetWPFKevin.ViewModels.Transactions
                     return !_convertToRegular;
 
                 if (IsRegularMode)
-                    return _convertToRecurring; 
+                    return _convertToRecurring;
 
                 return false;
             }
@@ -209,7 +251,7 @@ namespace BudgetWPFKevin.ViewModels.Transactions
             {
                 bool hasChanged = false;
 
-                if (IsRecurringMode && _convertToRegular == value) 
+                if (IsRecurringMode && _convertToRegular == value)
                 {
                     _convertToRegular = !value;
                     hasChanged = true;
@@ -229,8 +271,7 @@ namespace BudgetWPFKevin.ViewModels.Transactions
         }
 
 
-        public bool IsYearlyRecurrence => RecurrenceType == RecurrenceType.Yearly;
-        public bool ShowRecurringOptions => MakeRecurring;
+
 
         public RecurrenceType RecurrenceType
         {
@@ -273,7 +314,7 @@ namespace BudgetWPFKevin.ViewModels.Transactions
             }
         }
 
-        
+
 
         private string _selectedMonthName;
         public string SelectedMonthName
@@ -316,8 +357,7 @@ namespace BudgetWPFKevin.ViewModels.Transactions
                 OnPropertyChanged();
             }
         }
-        public bool ShouldConvertToRecurring => IsRegularMode && _convertToRecurring;
-        public bool ShouldConvertToRegular => IsRecurringMode && _convertToRegular;
+
 
 
         // Metod för att hämta data för återkommande transaktion
@@ -377,7 +417,7 @@ namespace BudgetWPFKevin.ViewModels.Transactions
             RecurrenceMonth = monthNumber;
         }
 
-       
+
 
         private void OnSave(object? parameter)
         {
@@ -390,7 +430,7 @@ namespace BudgetWPFKevin.ViewModels.Transactions
         }
     }
 
-    
+
     public class RecurringTransactionData
     {
         public RecurrenceType RecurrenceType { get; set; }

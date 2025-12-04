@@ -30,14 +30,14 @@
                   Foreground="{DynamicResource PrimaryTextBrush}"
                   Margin="0,0,0,20"/>
 
-        <!-- Yearly Income -->
+        <!-- Årsinkomst -->
         <StackPanel Grid.Row="1">
             <TextBlock Text="Årsinkomst (kr):"
                       Foreground="{DynamicResource PrimaryTextBrush}"/>
             <TextBox Text="{Binding YearlyIncome, UpdateSourceTrigger=PropertyChanged}"/>
         </StackPanel>
 
-        <!-- Yearly Work Hours -->
+        <!-- Årsarbetstid -->
         <StackPanel Grid.Row="2">
             <TextBlock Text="Årsarbetstid (timmar):"
                       Foreground="{DynamicResource PrimaryTextBrush}"/>
@@ -48,7 +48,7 @@
                       Margin="0,-10,0,10"/>
         </StackPanel>
 
-        <!-- Tax Rate -->
+        <!-- Skatt -->
         <StackPanel Grid.Row="3">
             <TextBlock Text="Skatt:"
                       Foreground="{DynamicResource PrimaryTextBrush}"/>
@@ -73,7 +73,7 @@
             </Grid>
         </StackPanel>
 
-        <!-- Validation Error -->
+        <!-- Error -->
         <TextBlock Grid.Row="4"
                   Text="{Binding ValidationError}"
                   Foreground="{DynamicResource NegativeColorBrush}"
@@ -81,7 +81,7 @@
                   Visibility="{Binding ValidationError, Converter={StaticResource StringToVisibilityConverter}}"
                   Margin="0,0,0,10"/>
 
-        <!-- Info Box -->
+        <!-- Info -->
         <Border Grid.Row="5"
                Background="{DynamicResource SurfaceBrush}"
                BorderBrush="{DynamicResource SystemAccentBrush}"
@@ -102,7 +102,7 @@
             </StackPanel>
         </Border>
 
-        <!-- Buttons -->
+        <!-- Knappar -->
         <StackPanel Grid.Row="6"
                    Orientation="Horizontal"
                    HorizontalAlignment="Right">

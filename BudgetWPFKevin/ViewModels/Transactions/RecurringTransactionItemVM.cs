@@ -43,7 +43,7 @@ namespace BudgetWPFKevin.ViewModels.Transactions
             }
         }
 
-        private string _categoryName;
+        private string? _categoryName;
         public string CategoryName
         {
             get => _categoryName ?? _recurringTransaction.Category?.Name ?? string.Empty;

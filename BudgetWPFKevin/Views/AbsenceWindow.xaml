@@ -32,14 +32,14 @@
                   Foreground="{DynamicResource PrimaryTextBrush}"
                   Margin="0,0,0,20"/>
 
-        <!-- Date -->
+        <!-- Datum -->
         <StackPanel Grid.Row="1">
             <TextBlock Text="Datum:"
                       Foreground="{DynamicResource PrimaryTextBrush}"/>
             <DatePicker SelectedDate="{Binding Date, Mode=TwoWay}"/>
         </StackPanel>
 
-        <!-- Type -->
+        <!-- Typ -->
         <StackPanel Grid.Row="2">
             <TextBlock Text="Typ:"
                       Foreground="{DynamicResource PrimaryTextBrush}"/>
@@ -49,14 +49,14 @@
                      SelectedValue="{Binding SelectedType, Mode=TwoWay}"/>
         </StackPanel>
 
-        <!-- Hours -->
+        <!-- Timmar -->
         <StackPanel Grid.Row="3">
             <TextBlock Text="Timmar:"
                       Foreground="{DynamicResource PrimaryTextBrush}"/>
             <TextBox Text="{Binding Hours, UpdateSourceTrigger=PropertyChanged}"/>
         </StackPanel>
 
-        <!-- Validation Error -->
+        <!-- Error -->
         <TextBlock Grid.Row="4"
                   Text="{Binding ValidationError}"
                   Foreground="{DynamicResource NegativeColorBrush}"
@@ -64,7 +64,7 @@
                   Visibility="{Binding ValidationError}"
                   Margin="0,0,0,10"/>
 
-        <!-- Info Box -->
+        <!-- Info -->
         <Border Grid.Row="5"
                Background="{DynamicResource SurfaceBrush}"
                BorderBrush="{DynamicResource SystemAccentBrush}"
@@ -100,7 +100,7 @@
             </StackPanel>
         </Border>
 
-        <!-- Buttons -->
+        <!-- Knappar -->
         <StackPanel Grid.Row="7"
                    Orientation="Horizontal"
                    HorizontalAlignment="Right">

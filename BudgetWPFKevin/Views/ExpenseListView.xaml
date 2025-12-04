@@ -13,7 +13,7 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="100"/>
                 </Grid.ColumnDefinitions>
-
+                <!-- Headers -->
                 <TextBlock Grid.Column="0" Text="Datum" Style="{StaticResource ColumnHeaderText}"/>
                 <TextBlock Grid.Column="1" Text="Kategori" Style="{StaticResource ColumnHeaderText}"/>
                 <TextBlock Grid.Column="2" Text="Beskrivning" Style="{StaticResource ColumnHeaderText}"/>
@@ -21,6 +21,7 @@
             </Grid>
         </Border>
 
+        <!-- Utgifter lista -->
         <ListBox ItemsSource="{Binding Expenses}" 
                  SelectedItem="{Binding SelectedTransaction, Mode=TwoWay}"
                  ItemTemplate="{StaticResource ExpenseTemplate}"

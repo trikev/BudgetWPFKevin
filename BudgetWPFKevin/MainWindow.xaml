@@ -19,7 +19,7 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <!-- Monthly Summary -->
+        <!-- Summering av måand -->
         <views:MonthlySummaryView Grid.Row="0" 
                                   DataContext="{Binding MonthlySummaryVM}" 
                                   Margin="0,0,0,10"/>
@@ -41,11 +41,11 @@
                    Content="📅 Lägg till frånvaro"/>
         </StackPanel>
 
-        <!-- Transaction Lists -->
+        <!-- Transaktionslistor -->
         <views:TransactionListsView Grid.Row="2" 
                                    DataContext="{Binding TransactionCoordinator}"/>
 
-        <!-- Absence Summary -->
+        <!-- Frånvarosummering -->
         <views:AbsenceSummaryView Grid.Row="3" 
                                  DataContext="{Binding AbsenceSummaryVM}"
                                  Margin="0,10,0,0"/>

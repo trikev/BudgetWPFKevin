@@ -22,6 +22,8 @@
             </Grid>
         </Border>
 
+        <!-- Inkomstlista -->
+        
         <ListBox ItemsSource="{Binding Incomes}" 
                  SelectedItem="{Binding SelectedTransaction, Mode=TwoWay}"
                  ItemTemplate="{StaticResource IncomeTemplate}"
