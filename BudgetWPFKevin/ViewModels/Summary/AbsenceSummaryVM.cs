@@ -166,7 +166,7 @@ namespace BudgetWPFKevin.ViewModels.Summary
                 return;
             }
 
-            var absences = AbsenceRecords.Select(vm => vm.ToAbsenceRecord()).ToList();
+            var absences = AbsenceRecords.Select(vm => vm.ToModel()).ToList();
             var effect = _incomeCalculationService.CalculateAbsenceEffect(userSettings, absences);
 
             AbsenceDeduction = effect.TotalDeduction;

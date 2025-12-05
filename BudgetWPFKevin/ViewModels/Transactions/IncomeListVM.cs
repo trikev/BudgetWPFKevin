@@ -26,6 +26,7 @@ namespace BudgetWPFKevin.ViewModels.Transactions
             }
         }
 
+
         public IncomeListVM(ITransactionRepository transactionRepository, IMapper mapper)
         {
             _transactionRepository = transactionRepository;

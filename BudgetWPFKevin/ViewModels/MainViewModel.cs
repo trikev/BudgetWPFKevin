@@ -1,4 +1,5 @@
 ﻿using BudgetWPFKevin.Commands;
+using BudgetWPFKevin.Models;
 using BudgetWPFKevin.Services;
 using BudgetWPFKevin.ViewModels;
 using BudgetWPFKevin.ViewModels.Absence;
@@ -126,11 +127,6 @@ namespace BudgetWPFKevin.ViewModels
         {
             if (TransactionCoordinator.SelectedTransaction == null) return;
 
-            if(AbsenceSummaryVM.SelectedAbsence != null) 
-            {
-                await AbsenceSummaryVM.DeleteAbsenceAsync(AbsenceSummaryVM.SelectedAbsence.Id);
-            }
-
             await TransactionCoordinator.DeleteSelectedAsync();
             await MonthlySummaryVM.RefreshAsync();
         }
@@ -146,11 +142,18 @@ namespace BudgetWPFKevin.ViewModels
 
         private async Task AddAbsenceAsync()
         {
-            var vm = new AbsenceItemVM();
-
-            if (_dialogService.ShowAbsenceDialog(vm) == true && vm.SavedAbsence != null)
+            var newAbsence = new AbsenceRecord
             {
-                await AbsenceSummaryVM.AddAbsenceAsync(vm.SavedAbsence);
+                Id = 0, 
+                Date = new DateTimeOffset(DateTime.Today),
+                Type = AbsenceType.Sick, 
+                Hours = 8
+            };
+
+            var vm = new AbsenceItemVM(newAbsence);
+            if (_dialogService.ShowAbsenceDialog(vm) == true)
+            {
+                await AbsenceSummaryVM.AddAbsenceAsync(vm.ToModel());
                 await MonthlySummaryVM.RefreshAsync();
             }
         }

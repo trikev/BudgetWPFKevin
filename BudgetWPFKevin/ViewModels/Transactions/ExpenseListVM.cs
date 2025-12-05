@@ -12,7 +12,7 @@ namespace BudgetWPFKevin.ViewModels.Transactions
 
         public ObservableCollection<TransactionItemViewModel> Expenses { get; }
 
-        private TransactionItemViewModel _selectedTransaction;
+        private TransactionItemViewModel? _selectedTransaction;
         public TransactionItemViewModel SelectedTransaction
         {
             get => _selectedTransaction;

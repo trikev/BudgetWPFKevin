@@ -25,17 +25,15 @@
         <!-- Header -->
         <TextBlock Grid.Row="0"
                    Text="Ange din årsinkomst och arbetstid"
-                   FontSize="18"
-                   FontWeight="Bold"
-                   Margin="0,0,0,20"/>
+                   Style="{StaticResource StandardHeaderText}"/>
 
-        <!-- Yearly Income -->
+        <!-- Årsinkomst -->
         <StackPanel Grid.Row="1">
             <TextBlock Text="Årsinkomst (kr):"/>
             <TextBox Text="{Binding YearlyIncome, UpdateSourceTrigger=PropertyChanged}"/>
         </StackPanel>
 
-        <!-- Yearly Work Hours -->
+        <!-- Årsarbetstid -->
         <StackPanel Grid.Row="2">
             <TextBlock Text="Årsarbetstid (timmar):"/>
             <TextBox Text="{Binding YearlyWorkHours, UpdateSourceTrigger=PropertyChanged}"/>
@@ -54,22 +52,17 @@
                 </Grid.ColumnDefinitions>
 
                 <TextBox Grid.Column="0" 
-         Text="{Binding TaxRate, StringFormat=N2, UpdateSourceTrigger=PropertyChanged}"
-         IsEnabled="{Binding IsEditing}"/>
+                        Text="{Binding TaxRate, StringFormat=N2, UpdateSourceTrigger=PropertyChanged}"
+                        IsEnabled="{Binding IsEditing}"
+                         Margin="3"/>
 
                 <Button Grid.Column="1" 
-Content="Ändra" 
-Command="{Binding ToggleEditCommand}"
-Width="50"
-Height="36"
-FontSize="10"
-Padding="2"
-Margin="5,0,0,15"
-                />
+                        Content="Ändra" 
+                        Command="{Binding ToggleEditCommand}"/>
             </Grid>
         </StackPanel>
 
-        <!-- Validation Error -->
+        <!-- Error -->
         <TextBlock Grid.Row="3"
                    Text="{Binding ValidationError}"
                    Foreground="Red"
@@ -77,14 +70,14 @@ Margin="5,0,0,15"
                    Visibility="{Binding ValidationError, Converter={StaticResource StringToVisibilityConverter}}"
                    Margin="0,0,0,10"/>
 
-        <!-- Info Box -->
+        <!-- Info -->
         <Border Grid.Row="4"
                 Background="#E3F2FD"
                 BorderBrush="#2196F3"
                 BorderThickness="1"
                 CornerRadius="5"
                 Padding="10"
-                Margin="0,0,0,10">
+                Margin="0,10,0,10">
             <StackPanel>
                 <TextBlock Text="ℹ️ Information" FontWeight="Bold" Margin="0,0,0,5"/>
                 <TextBlock TextWrapping="Wrap" FontSize="12"><Run Text="Dessa uppgifter används för att beräkna din månadsinkomst och effekten av frånvaro (VAB/sjuk). Timlön beräknas som: Årsinkomst ÷ Årsarbetstid."/></TextBlock>

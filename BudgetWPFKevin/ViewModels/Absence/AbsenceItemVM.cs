@@ -7,44 +7,51 @@ namespace BudgetWPFKevin.ViewModels.Absence
 
     public class AbsenceItemVM : ViewModelBase
     {
-        private int _id;
+        private readonly AbsenceRecord _absence;
+
+        public AbsenceItemVM(AbsenceRecord absence)
+        {
+            _absence = absence;
+            SaveCommand = new DelegateCommand(Save, CanSave);
+            CancelCommand = new DelegateCommand(Cancel);
+            ValidateInput();
+        }
+
         public int Id
         {
-            get => _id;
+            get => _absence.Id;
             set
             {
-                if (_id != value)
+                if (_absence.Id != value)
                 {
-                    _id = value;
+                    _absence.Id = value;
                     OnPropertyChanged();
                 }
             }
         }
 
-        private DateTime _date = DateTime.Today;
         public DateTime Date
         {
-            get => _date;
+            get => _absence.Date.DateTime;
             set
             {
-                if (_date != value)
+                if (_absence.Date.DateTime != value)
                 {
-                    _date = value;
+                    _absence.Date = new DateTimeOffset(value);
                     OnPropertyChanged();
                     ValidateInput();
                 }
             }
         }
 
-        private AbsenceType _selectedType = AbsenceType.Sick;
         public AbsenceType SelectedType
         {
-            get => _selectedType;
+            get => _absence.Type;
             set
             {
-                if (_selectedType != value)
+                if (_absence.Type != value)
                 {
-                    _selectedType = value;
+                    _absence.Type = value;
                     OnPropertyChanged();
                     OnPropertyChanged(nameof(DisplayTypeName));
                 }
@@ -57,15 +64,14 @@ namespace BudgetWPFKevin.ViewModels.Absence
             .Cast<AbsenceType>()
             .ToList();
 
-        private decimal _hours = 8;
         public decimal Hours
         {
-            get => _hours;
+            get => _absence.Hours;
             set
             {
-                if (_hours != value)
+                if (_absence.Hours != value)
                 {
-                    _hours = value;
+                    _absence.Hours = value;
                     OnPropertyChanged();
                     ValidateInput();
                 }
@@ -103,30 +109,7 @@ namespace BudgetWPFKevin.ViewModels.Absence
 
         public AbsenceRecord? SavedAbsence { get; private set; }
 
-        public AbsenceItemVM()
-        {
-            SaveCommand = new DelegateCommand(Save, CanSave);
-            CancelCommand = new DelegateCommand(Cancel);
-        }
-
-        public AbsenceItemVM(AbsenceRecord absence) : this()
-        {
-            Id = absence.Id;
-            Date = absence.Date.DateTime;
-            SelectedType = absence.Type;
-            Hours = absence.Hours;
-        }
-
-        public AbsenceRecord ToAbsenceRecord()
-        {
-            return new AbsenceRecord
-            {
-                Id = Id,
-                Date = new DateTimeOffset(Date),
-                Type = SelectedType,
-                Hours = Hours
-            };
-        }
+        public AbsenceRecord ToModel() => _absence;
 
         // Validera användarens inmatning
 
@@ -146,7 +129,7 @@ namespace BudgetWPFKevin.ViewModels.Absence
                 IsValid = false;
             }
 
-            SaveCommand.RaiseCanExecuteChanged();
+            SaveCommand?.RaiseCanExecuteChanged();
         }
 
         private bool CanSave(object parameter)
@@ -156,15 +139,7 @@ namespace BudgetWPFKevin.ViewModels.Absence
 
         private void Save(object parameter)
         {
-            var absence = new AbsenceRecord
-            {
-                Id = Id, 
-                Date = new DateTimeOffset(Date),
-                Type = SelectedType,
-                Hours = Hours
-            };
-
-            SavedAbsence = absence;
+            SavedAbsence = _absence;
             CloseAction?.Invoke(true);
         }
 

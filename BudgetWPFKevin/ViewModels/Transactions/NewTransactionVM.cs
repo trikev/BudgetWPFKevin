@@ -357,6 +357,7 @@ namespace BudgetWPFKevin.ViewModels.Transactions
                 .Where(m => !string.IsNullOrEmpty(m))
                 .Select(m => char.ToUpper(m[0]) + m.Substring(1))
                 .ToList();
+            
             if (IsRecurringMode && RecurringTransaction != null)
             {
                 var currentMonth = RecurringTransaction.RecurrenceMonth;
@@ -380,8 +381,6 @@ namespace BudgetWPFKevin.ViewModels.Transactions
                 DateTimeStyles.None).Month;
             RecurrenceMonth = monthNumber;
         }
-
-
 
         private void OnSave(object? parameter)
         {

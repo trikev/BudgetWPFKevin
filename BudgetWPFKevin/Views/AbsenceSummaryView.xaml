@@ -62,24 +62,16 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
 
-                        <TextBlock Grid.Column="0" 
-                                   Text="Datum" 
-                                   Style="{StaticResource ColumnHeaderText}"/>
-
-                        <TextBlock Grid.Column="1" 
-                                   Text="Typ" 
-                                   Style="{StaticResource ColumnHeaderText}"/>
-
-                        <TextBlock Grid.Column="2" 
-                                   Text="Timmar" 
-                                   Style="{StaticResource ColumnHeaderText}"/>
+                        <TextBlock Grid.Column="0" Text="Datum" Style="{StaticResource ColumnHeaderText}"/>
+                        <TextBlock Grid.Column="1" Text="Typ" Style="{StaticResource ColumnHeaderText}"/>
+                        <TextBlock Grid.Column="2" Text="Timmar" Style="{StaticResource ColumnHeaderText}"/>
                     </Grid>
                 </Border>
 
                 <!-- ListBox med data -->
                 <ListBox ItemsSource="{Binding AbsenceRecords}"
                          ItemTemplate="{StaticResource AbsenceRecordTemplate}"
-                         MaxHeight="120"
+                         MaxHeight="130"
                          ItemContainerStyle="{StaticResource NonSelectableListBoxItem}"/>
             </StackPanel>
         </Grid>

@@ -3,8 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:vm="clr-namespace:BudgetWPFKevin.ViewModels" xmlns:ui="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
 
-   
-
     <Border Padding="10" BorderBrush="#DDDDDD" BorderThickness="0,0,0,1">
         <Grid>
             <Grid.RowDefinitions>
@@ -12,7 +10,7 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
-            <!-- Vänster: rubrik + aktuell månad -->
+            <!-- rubrik + aktuell månad -->
             <StackPanel Grid.Row="0" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0,0,0,10">
                 <TextBlock Text="Budgetöversikt" FontSize="22" FontWeight="SemiBold" VerticalAlignment="Center"/>
                 <Separator Width="1" Margin="10,0,10,0"/>
@@ -31,7 +29,7 @@
 
             </StackPanel>
 
-            <!-- Höger: totalsiffror -->
+            <!-- totalsiffror -->
             <WrapPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Left">
                 <Border Style="{StaticResource SummaryCard}">
                     <StackPanel Style="{StaticResource CardContent}">

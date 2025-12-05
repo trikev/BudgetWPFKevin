@@ -13,7 +13,7 @@ namespace BudgetWPFKevin.ViewModels.Transactions
 
         public ObservableCollection<RecurringTransactionItemVM> RecurringTransactions { get; }
 
-        private RecurringTransactionItemVM _selectedRecurring;
+        private RecurringTransactionItemVM? _selectedRecurring;
         public RecurringTransactionItemVM SelectedRecurring
         {
             get => _selectedRecurring;

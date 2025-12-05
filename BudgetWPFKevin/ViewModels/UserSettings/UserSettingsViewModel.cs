@@ -205,5 +205,6 @@ namespace BudgetWPFKevin.ViewModels
         {
             CloseAction?.Invoke(false);
         }
+
     }
 }
